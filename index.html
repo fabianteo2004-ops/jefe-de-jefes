@@ -1027,7 +1027,7 @@
     <ul class="nav-links">
       <li><a href="#sobre">Nosotros</a></li>
       <li><a href="#destacados">Destacados</a></li>
-      <li><a href="#carta">Menú</a></li>
+      <li><a href="./carta/">Menú</a></li>
       <li><a href="#terraza">Terraza</a></li>
       <li><a href="#horarios">Horarios</a></li>
       <li><a href="#resenas">Reseñas</a></li>
@@ -1040,7 +1040,7 @@
   <div class="nav-mobile" id="navMobile">
     <a href="#sobre">Nosotros</a>
     <a href="#destacados">Destacados</a>
-    <a href="#carta">Menú</a>
+    <a href="./carta/">Menú</a>
     <a href="#terraza">Terraza</a>
     <a href="#horarios">Horarios</a>
     <a href="#resenas">Reseñas</a>
@@ -1172,13 +1172,13 @@
         </div>
       </div>
       <div class="dest-cta reveal">
-        <a href="#carta" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">Ver carta completa →</a>
+        <a href="./carta/" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">Ver carta completa →</a>
       </div>
     </div>
   </section>
 
-  <!-- CARTA OVERLAY (fuera del flujo de scroll) -->
-  <div class="carta-overlay" id="cartaOverlay">
+  <!-- CARTA → carta/index.html -->
+  <!--
     <div class="carta-overlay-header">
       <span class="carta-overlay-title"><span style="color:var(--verde)">Jefe</span> <span style="color:var(--rojo)">de Jefes</span> · Carta</span>
       <button class="carta-close" id="cartaClose" aria-label="Cerrar carta">✕</button>
@@ -1332,7 +1332,7 @@
     <div class="carousel-dots" id="carouselDots"></div>
     <p class="menu-note">Precios entre <strong>8€ y 20€</strong> · IVA incluido · Carta sujeta a disponibilidad</p>
     </div><!-- /carta-overlay-body -->
-  </div><!-- /carta-overlay -->
+  -->
 
   <!-- PARALLAX BANNER -->
   <div class="parallax-banner">
@@ -1615,114 +1615,6 @@
     }, { threshold: 0.12 });
 
     revealEls.forEach(el => observer.observe(el));
-
-    // ===== CARRUSEL CARTA =====
-    (function() {
-      const track = document.getElementById('carouselTrack');
-      const dotsWrap = document.getElementById('carouselDots');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const tabs = document.querySelectorAll('.menu-tab');
-
-      let allCards = Array.from(track.querySelectorAll('.c-card'));
-      let visible = [...allCards];
-      let idx = 0;
-
-      function buildDots() {
-        dotsWrap.innerHTML = '';
-        visible.forEach((_, i) => {
-          const d = document.createElement('button');
-          d.className = 'c-dot' + (i === idx ? ' active' : '');
-          d.addEventListener('click', () => goTo(i));
-          dotsWrap.appendChild(d);
-        });
-      }
-
-      function render() {
-        const cardW = (visible[0] ? visible[0].offsetWidth : 285) + 10;
-        allCards.forEach(c => { c.style.opacity = '0'; c.style.zIndex = '0'; c.style.pointerEvents = 'none'; });
-        visible.forEach((card, i) => {
-          const off = i - idx;
-          const abs = Math.abs(off);
-          if (abs > 2) return;
-          const s = [1, 0.82, 0.65][abs];
-          const o = [1, 0.65, 0.35][abs];
-          const tx = off * cardW;
-          card.style.transform = `translateX(${tx}px) scale(${s})`;
-          card.style.opacity = o;
-          card.style.zIndex = 10 - abs;
-          card.style.pointerEvents = abs === 0 ? 'auto' : 'none';
-          card.classList.toggle('active', off === 0);
-        });
-        document.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-      }
-
-      window.addEventListener('resize', render, { passive: true });
-
-      function goTo(i) {
-        idx = Math.max(0, Math.min(i, visible.length - 1));
-        render();
-      }
-
-      prevBtn.addEventListener('click', () => goTo(idx - 1));
-      nextBtn.addEventListener('click', () => goTo(idx + 1));
-
-      document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft') goTo(idx - 1);
-        if (e.key === 'ArrowRight') goTo(idx + 1);
-      });
-
-      let tx0 = 0;
-      track.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
-      track.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - tx0;
-        if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
-      });
-
-      track.addEventListener('click', e => {
-        const card = e.target.closest('.c-card');
-        if (!card) return;
-        const i = visible.indexOf(card);
-        if (i !== -1 && i !== idx) goTo(i);
-      });
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          const cat = tab.dataset.cat;
-          allCards.forEach(c => { c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none'; });
-          visible = allCards.filter(c => c.style.display !== 'none');
-          idx = 0;
-          buildDots();
-          render();
-        });
-      });
-
-      buildDots();
-      render();
-    })();
-
-    // ===== CARTA OVERLAY =====
-    const cartaOverlay = document.getElementById('cartaOverlay');
-    const cartaClose   = document.getElementById('cartaClose');
-
-    function openCarta() {
-      cartaOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => render(), 50);
-    }
-    function closeCarta() {
-      cartaOverlay.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    cartaClose.addEventListener('click', closeCarta);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCarta(); });
-
-    document.querySelectorAll('a[href="#carta"]').forEach(a => {
-      a.addEventListener('click', e => { e.preventDefault(); openCarta(); });
-    });
 
     // ===== HAMBURGER =====
     const burger = document.getElementById('navBurger');

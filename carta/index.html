@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta — Jefe de Jefes</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --verde:  #006847;
+      --rojo:   #CE1126;
+      --blanco: #FFFFFF;
+    }
+    html { overflow-x: hidden; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #080808;
+      color: #f5f5f5;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ===== FONDO ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.18) 0%, transparent 65%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.012) 28px, rgba(255,255,255,0.012) 29px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== HEADER ===== */
+    .carta-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,8,8,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+    }
+    .carta-logo {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .carta-logo span { color: var(--verde); }
+    .carta-logo em   { color: var(--rojo); font-style: normal; }
+    .btn-volver {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .btn-volver:hover { color: white; }
+    .btn-volver svg { width: 16px; height: 16px; }
+
+    /* ===== BANDERA ===== */
+    .flag-bar {
+      height: 5px;
+      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== HERO TITULO ===== */
+    .carta-hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 5vw 40px;
+    }
+    .carta-hero h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      line-height: 1.1;
+    }
+    .carta-hero h1 span { color: var(--rojo); }
+    .carta-hero p {
+      margin-top: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+    }
+
+    /* ===== TABS ===== */
+    .menu-tabs {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      position: relative;
+      z-index: 2;
+      padding: 0 5vw;
+    }
+    .menu-tab {
+      padding: 0.45rem 1.1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: inherit;
+    }
+    .menu-tab:hover { color: white; border-color: rgba(255,255,255,0.45); }
+    .menu-tab.active { background: var(--rojo); border-color: var(--rojo); color: white; }
+
+    /* ===== CARRUSEL ===== */
+    .carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0 1rem;
+      z-index: 2;
+    }
+    .carousel-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .carousel-btn:hover { background: var(--rojo); border-color: var(--rojo); transform: scale(1.08); }
+    .carousel-viewport {
+      width: 100%;
+      max-width: 980px;
+      height: 490px;
+      position: relative;
+      overflow: visible;
+    }
+    .carousel-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .c-card {
+      position: absolute;
+      width: 285px;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  opacity 0.5s ease,
+                  box-shadow 0.5s ease;
+      will-change: transform, opacity;
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .c-card.active { box-shadow: 0 28px 65px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.1); cursor: default; }
+    .c-card-img { width: 100%; height: 210px; object-fit: cover; display: block; }
+    .c-card-grad {
+      width: 100%; height: 210px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4.5rem;
+    }
+    .c-card-body { background: #181818; padding: 1.4rem; }
+    .c-card-cat {
+      font-size: 0.67rem; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 0.4rem; color: var(--verde);
+    }
+    .c-card-name { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; line-height: 1.2; }
+    .c-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.48); line-height: 1.6; margin-top: 0.5rem; }
+    .c-card-price { margin-top: 1rem; font-size: 1.35rem; font-weight: 900; color: var(--rojo); }
+
+    .carousel-dots {
+      display: flex; gap: 0.5rem; justify-content: center;
+      margin-top: 2.5rem; position: relative; z-index: 2;
+    }
+    .c-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.22); cursor: pointer;
+      transition: all 0.3s; border: none; padding: 0;
+    }
+    .c-dot.active { background: var(--rojo); width: 24px; border-radius: 4px; }
+
+    .menu-note {
+      text-align: center; margin-top: 3rem; padding-bottom: 60px;
+      color: rgba(255,255,255,0.3); font-size: 0.85rem;
+      position: relative; z-index: 2;
+    }
+    .menu-note strong { color: var(--verde); }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .carousel-btn { width: 38px; height: 38px; font-size: 1rem; }
+      .c-card { width: 76vw; max-width: 300px; }
+      .carousel-viewport { height: 520px; }
+    }
+    @media (max-width: 480px) {
+      .carousel-btn { display: none; }
+      .c-card { width: 82vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="carta-header">
+    <a href="../" class="carta-logo"><span>Jefe</span> <em>de Jefes</em></a>
+    <a href="../" class="btn-volver">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Volver al inicio
+    </a>
+  </header>
+
+  <div class="flag-bar"></div>
+
+  <div class="carta-hero">
+    <h1>Nuestra <span>Carta</span></h1>
+    <p>Desliza para explorar · Toca para ver el plato</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="menu-tab active" data-cat="all">Todo</button>
+    <button class="menu-tab" data-cat="entrante">Entrantes</button>
+    <button class="menu-tab" data-cat="tacos">Tacos</button>
+    <button class="menu-tab" data-cat="burritos">Burritos</button>
+    <button class="menu-tab" data-cat="especialidad">Especialidades</button>
+    <button class="menu-tab" data-cat="bebidas">Bebidas</button>
+  </div>
+
+  <div class="carousel-wrap">
+    <button class="carousel-btn" id="prevBtn">&#8592;</button>
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="c-card" data-cat="entrante">
+          <img class="c-card-img" src="../assets/guacamole.jpg" alt="Guacamole" loading="lazy"/>
+          <div class="c-card-body">
+            <p class="c-card-cat">Entrante</p>
+            <h3 class="c-card-name">Guacamole con Totopos</h3>
+            <p class="c-card-desc">Aguacate machacado al momento con tomate, cebolla, cilantro y chile jalapeño fresco.</p>
+            <p class="c-card-price">8€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="entrante">
+          <div class="c-card-grad" style="background: linear-gradient(135deg,#b45309,#78350f);">🧀</div>
+          <div class="c-card-body">
+            <p class="c-card-cat">Entrante</p>
+            <h3 class="c-card-name">Nachos Especiales</h3>
+            <p class="c-card-desc">Totopos crujientes con queso fundido, jalapeños, crema agria y pico de gallo casero.</p>
+            <p class="c-card-price">9€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="entrante">
+          <img class="c-card-img" src="../assets/plato 1.jpg" alt="Quesadilla" loading="lazy"/>
+          <div class="c-card-body">
+            <p class="c-card-cat">Entrante</p>
+            <h3 class="c-card-name">Quesadilla de Pollo</h3>
+            <p class="c-card-desc">Tortilla de harina con pollo asado, queso Oaxaca fundido y guacamole de la casa.</p>
+            <p class="c-card-price">10€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="tacos">
+          <div class="c-card-grad" style="background: linear-gradient(135deg,#991b1b,#6b1717);">🌮</div>
+          <div class="c-card-body">
+            <p class="c-card-cat">Tacos</p>
+            <h3 class="c-card-name">Tacos al Pastor</h3>
+            <p class="c-card-desc">3 tacos de cerdo marinado en achiote con piña fresca, cebolla morada y cilantro.</p>
+            <p class="c-card-price">11€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="tacos">
+          <img class="c-card-img" src="../assets/machete birria.jpg" alt="Tacos de Birria" loading="lazy"/>
+          <div class="c-card-body">
+            <p class="c-card-cat">Tacos · Estrella</p>
+            <h3 class="c-card-name">Tacos de Birria</h3>
+            <p class="c-card-desc">3 tacos con carne deshebrada, cebolla, cilantro y salsa roja. Se sirven con consomé.</p>
+            <p class="c-card-price">13€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="tacos">
+          <div class="c-card-grad" style="background: linear-gradient(135deg,#c2410c,#7c2d12);">🌶️</div>
+          <div class="c-card-body">
+            <p class="c-card-cat">Tacos</p>
+            <h3 class="c-card-name">Tacos de Cochinita</h3>
+            <p class="c-card-desc">3 tacos de cochinita pibil con achiote y cebolla morada encurtida en naranja agria.</p>
+            <p class="c-card-price">12€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="burritos">
+          <div class="c-card-grad" style="background: linear-gradient(135deg,#166534,#14532d);">🌯</div>
+          <div class="c-card-body">
+            <p class="c-card-cat">Burritos</p>
+            <h3 class="c-card-name">Burrito de Pollo</h3>
+            <p class="c-card-desc">Tortilla XL con pollo a la plancha, arroz, frijoles, queso, guacamole y pico de gallo.</p>
+            <p class="c-card-price">12€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="burritos">
+          <div class="c-card-grad" style="background: linear-gradient(135deg,#7c2d12,#5a1f0a);">🥩</div>
+          <div class="c-card-body">
+            <p class="c-card-cat">Burritos</p>
+            <h3 class="c-card-name">Burrito de Carne</h3>
+            <p class="c-card-desc">Tortilla XL con carne deshebrada, arroz, frijoles refritos, queso cheddar y jalapeños.</p>
+            <p class="c-card-price">14€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="especialidad">
+          <img class="c-card-img" src="../assets/machete chicharron.jpg" alt="Machete Chicharrón" loading="lazy"/>
+          <div class="c-card-body">
+            <p class="c-card-cat">Especialidad</p>
+            <h3 class="c-card-name">Machete Chicharrón</h3>
+            <p class="c-card-desc">Tortilla gigante con chicharrón en salsa verde, crema y queso rallado. Imprescindible.</p>
+            <p class="c-card-price">14€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="especialidad">
+          <img class="c-card-img" src="../assets/enchilada.jpg" alt="Enchiladas Rojas" loading="lazy"/>
+          <div class="c-card-body">
+            <p class="c-card-cat">Clásicos</p>
+            <h3 class="c-card-name">Enchiladas Rojas</h3>
+            <p class="c-card-desc">Tortillas rellenas de pollo bañadas en salsa de chile guajillo con queso y crema agria.</p>
+            <p class="c-card-price">12€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="bebidas">
+          <div class="c-card-grad" style="background: linear-gradient(135deg,#4d7c0f,#2d4a08);">🍹</div>
+          <div class="c-card-body">
+            <p class="c-card-cat">Bebidas</p>
+            <h3 class="c-card-name">Margarita Clásica</h3>
+            <p class="c-card-desc">Tequila blanco, triple sec y zumo de lima natural. Servida con sal en el borde.</p>
+            <p class="c-card-price">9€</p>
+          </div>
+        </div>
+
+        <div class="c-card" data-cat="bebidas">
+          <div class="c-card-grad" style="background: linear-gradient(135deg,#1e3a5f,#0d2040);">🍺</div>
+          <div class="c-card-body">
+            <p class="c-card-cat">Bebidas</p>
+            <h3 class="c-card-name">Michelada</h3>
+            <p class="c-card-desc">Cerveza con limón, salsa Worcestershire, Maggi y chile en polvo. Muy refrescante.</p>
+            <p class="c-card-price">8€</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <button class="carousel-btn" id="nextBtn">&#8594;</button>
+  </div>
+
+  <div class="carousel-dots" id="carouselDots"></div>
+
+  <p class="menu-note">Precios con IVA incluido · <strong>643 114 833</strong> · Av. de Niza, 51 · Madrid</p>
+
+  <script>
+    (function() {
+      const track    = document.getElementById('carouselTrack');
+      const dotsWrap = document.getElementById('carouselDots');
+      const prevBtn  = document.getElementById('prevBtn');
+      const nextBtn  = document.getElementById('nextBtn');
+      const tabs     = document.querySelectorAll('.menu-tab');
+
+      let allCards = Array.from(track.querySelectorAll('.c-card'));
+      let visible  = [...allCards];
+      let idx = 0;
+
+      function buildDots() {
+        dotsWrap.innerHTML = '';
+        visible.forEach((_, i) => {
+          const d = document.createElement('button');
+          d.className = 'c-dot' + (i === idx ? ' active' : '');
+          d.addEventListener('click', () => goTo(i));
+          dotsWrap.appendChild(d);
+        });
+      }
+
+      function render() {
+        const cardW = (visible[0] ? visible[0].offsetWidth : 285) + 10;
+        allCards.forEach(c => { c.style.opacity = '0'; c.style.zIndex = '0'; c.style.pointerEvents = 'none'; });
+        visible.forEach((card, i) => {
+          const off = i - idx;
+          const abs = Math.abs(off);
+          if (abs > 2) return;
+          const s = [1, 0.82, 0.65][abs];
+          const o = [1, 0.65, 0.35][abs];
+          const tx = off * cardW;
+          card.style.transform = `translateX(${tx}px) scale(${s})`;
+          card.style.opacity   = o;
+          card.style.zIndex    = 10 - abs;
+          card.style.pointerEvents = abs === 0 ? 'auto' : 'none';
+          card.classList.toggle('active', off === 0);
+        });
+        document.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+
+      window.addEventListener('resize', render, { passive: true });
+
+      function goTo(i) {
+        idx = Math.max(0, Math.min(i, visible.length - 1));
+        render();
+      }
+
+      prevBtn.addEventListener('click', () => goTo(idx - 1));
+      nextBtn.addEventListener('click', () => goTo(idx + 1));
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft')  goTo(idx - 1);
+        if (e.key === 'ArrowRight') goTo(idx + 1);
+      });
+
+      let tx0 = 0;
+      track.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - tx0;
+        if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
+      });
+
+      track.addEventListener('click', e => {
+        const card = e.target.closest('.c-card');
+        if (!card) return;
+        const i = visible.indexOf(card);
+        if (i !== -1 && i !== idx) goTo(i);
+      });
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const cat = tab.dataset.cat;
+          allCards.forEach(c => { c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none'; });
+          visible = allCards.filter(c => c.style.display !== 'none');
+          idx = 0;
+          buildDots();
+          render();
+        });
+      });
+
+      buildDots();
+      render();
+    })();
+  </script>
+</body>
+</html>
