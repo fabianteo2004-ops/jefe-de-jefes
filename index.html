@@ -1,29 +1,36 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jefe de Jefes — Cocina Mexicana en Madrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --verde:   #006847;
-      --rojo:    #CE1126;
-      --blanco:  #FFFFFF;
-      --verde-oscuro: #004d34;
-      --rojo-oscuro:  #9e0d1c;
-      --gris-oscuro:  #111111;
+      --rojo:         #dc3830;
+      --verde:        #dc3830;
+      --blanco:       #f2ecd5;
+      --rojo-oscuro:  #b02e27;
+      --verde-oscuro: #b02e27;
+      --gris-oscuro:  #272727;
       --gris-medio:   #1e1e1e;
-      --texto:        #f5f5f5;
+      --texto:        #f2ecd5;
     }
     html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
       background: var(--gris-oscuro);
       color: var(--texto);
       overflow-x: hidden;
       max-width: 100%;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Anton', Impact, sans-serif;
+      letter-spacing: 1px;
     }
 
     /* ===== NAVBAR ===== */
@@ -42,11 +49,12 @@
       transition: background 0.3s;
     }
     .nav-logo {
+      font-family: 'Anton', Impact, sans-serif;
       font-size: 1.5rem;
-      font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       color: var(--blanco);
       text-decoration: none;
+      text-transform: uppercase;
     }
     .nav-logo span { color: var(--verde); }
     .nav-logo em { color: var(--rojo); font-style: normal; }
@@ -83,13 +91,13 @@
       position: absolute;
       top: 70px; left: 0; right: 0;
       height: 6px;
-      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
+      background: var(--rojo);
     }
     .hero-stripe-bot {
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 6px;
-      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
+      background: var(--rojo);
     }
     .hero-content { position: relative; z-index: 2; padding: 0 1rem; }
     .hero-tagline {
@@ -217,10 +225,10 @@
     section { padding: 100px 5vw; overflow-x: hidden; }
     .section-label {
       display: inline-block;
-      font-size: 0.75rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      font-weight: 700;
+      font-family: 'Segoe Script', 'Brush Script MT', cursive;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      font-weight: 400;
       margin-bottom: 1rem;
     }
     .section-label.verde { color: var(--verde); }
@@ -241,21 +249,21 @@
 
     /* ===== BANDERA DECORATIVA ===== */
     .flag-bar {
-      height: 8px;
-      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
+      height: 5px;
+      background: var(--rojo);
     }
 
     /* ===== SOBRE NOSOTROS ===== */
     #sobre {
       position: relative;
-      background: #080808;
+      background: #1c1c1c;
     }
     #sobre::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(220,56,48,0.15) 0%, transparent 65%),
         radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
         repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
       pointer-events: none;
@@ -335,12 +343,12 @@
     /* ===== PLATOS DESTACADOS ===== */
     #destacados {
       position: relative;
-      background: #080808;
+      background: #1c1c1c;
     }
     #destacados::before {
       content: ''; position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(220,56,48,0.15) 0%, transparent 65%),
         radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
         repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
       pointer-events: none;
@@ -387,7 +395,7 @@
     /* ===== CARTA CARRUSEL ===== */
     #carta {
       position: relative;
-      background: #080808;
+      background: #1c1c1c;
       overflow: hidden;
       padding: 100px 0;
     }
@@ -396,7 +404,7 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(220,56,48,0.15) 0%, transparent 65%),
         radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
         repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
       pointer-events: none;
@@ -619,14 +627,14 @@
     /* ===== HORARIOS ===== */
     #horarios {
       position: relative;
-      background: #080808;
+      background: #1c1c1c;
     }
     #horarios::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(220,56,48,0.15) 0%, transparent 65%),
         radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
         repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
       pointer-events: none;
@@ -681,14 +689,14 @@
     /* ===== CONTACTO ===== */
     #contacto {
       position: relative;
-      background: #080808;
+      background: #1c1c1c;
     }
     #contacto::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(220,56,48,0.15) 0%, transparent 65%),
         radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
         repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
       pointer-events: none;
@@ -711,7 +719,7 @@
       font-size: 1.2rem;
       flex-shrink: 0;
     }
-    .ci-verde { background: rgba(0,104,71,0.3); border: 1px solid var(--verde); }
+    .ci-verde { background: rgba(220,56,48,0.25); border: 1px solid var(--verde); }
     .ci-rojo  { background: rgba(206,17,38,0.3); border: 1px solid var(--rojo);  }
     .contacto-item h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.3rem; }
     .contacto-item p, .contacto-item a {
@@ -769,7 +777,7 @@
       position: fixed;
       inset: 0;
       z-index: 1500;
-      background: #080808;
+      background: #1c1c1c;
       overflow-y: auto;
       overflow-x: hidden;
       transform: translateY(100%);
@@ -808,7 +816,7 @@
     .carta-close:hover { background: var(--rojo); border-color: var(--rojo); }
     .carta-overlay-body {
       position: relative;
-      background: #080808;
+      background: #1c1c1c;
       padding-bottom: 60px;
     }
     .carta-overlay-body::before {
@@ -816,7 +824,7 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(220,56,48,0.1) 0%, transparent 65%),
         radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.15) 0%, transparent 65%);
       pointer-events: none;
       z-index: 0;
@@ -826,14 +834,14 @@
     /* ===== RESEÑAS ===== */
     #resenas {
       position: relative;
-      background: #080808;
+      background: #1c1c1c;
     }
     #resenas::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(220,56,48,0.15) 0%, transparent 65%),
         radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
         repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
       pointer-events: none;
@@ -1451,7 +1459,7 @@
           <div class="resena-stars">★★★★★</div>
           <p class="resena-texto">"La comida estaba increíble, de verdad nos encantaron todos los platos. Si tuviéramos que elegir dos favoritos, sin duda serían la cochinita pibil y la porquería, que de verdad estaban muy, muy buenas. Además, nos pareció súper bien de precio para todo lo que comimos. La atención fue grandiosa y el personal muy cercano y amable. El local es pequeñito pero súper acogedor. Sin duda, súper recomendado y volveré 🫶🏻"</p>
           <div class="resena-autor">
-            <div class="resena-avatar" style="background: #006847;">K</div>
+            <div class="resena-avatar" style="background: var(--rojo);">K</div>
             <div>
               <p class="resena-nombre">Karla Moreno</p>
               <p class="resena-fecha">Reseña en Google Maps</p>

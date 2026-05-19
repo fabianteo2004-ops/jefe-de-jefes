@@ -4,474 +4,831 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carta — Jefe de Jefes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --verde:  #006847;
-      --rojo:   #CE1126;
-      --blanco: #FFFFFF;
+      --rojo:   #dc3830;
+      --oscuro: #272727;
+      --crema:  #f2ecd5;
+      --card:   #1e1e1e;
+      --borde:  rgba(242,236,213,0.1);
     }
-    html { overflow-x: hidden; }
+    html { overflow-x: hidden; scroll-behavior: smooth; }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #080808;
-      color: #f5f5f5;
+      font-family: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+      background: var(--oscuro);
+      color: var(--crema);
       overflow-x: hidden;
       min-height: 100vh;
     }
+    h1, h2, h3 { font-family: 'Anton', Impact, sans-serif; letter-spacing: 1px; }
 
-    /* ===== FONDO ===== */
+    /* ===== FONDO DECORATIVO ===== */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
-        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.18) 0%, transparent 65%),
-        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.18) 0%, transparent 65%),
-        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.012) 28px, rgba(255,255,255,0.012) 29px);
+        radial-gradient(ellipse 60% 80% at 5% 50%, rgba(220,56,48,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 95% 50%, rgba(220,56,48,0.08) 0%, transparent 60%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(242,236,213,0.015) 28px, rgba(242,236,213,0.015) 29px);
       pointer-events: none;
       z-index: 0;
     }
 
     /* ===== HEADER ===== */
-    .carta-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8,8,8,0.95);
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(30,30,30,0.97);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      display: flex;
-      align-items: center;
+      border-bottom: 1px solid var(--borde);
+      display: flex; align-items: center;
       justify-content: space-between;
-      padding: 0 5vw;
-      height: 64px;
+      padding: 0 5vw; height: 64px;
     }
-    .carta-logo {
-      font-size: 1.25rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-decoration: none;
-      text-transform: uppercase;
+    .logo {
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: 1.4rem; letter-spacing: 2px;
+      text-decoration: none; text-transform: uppercase;
+      color: var(--crema);
     }
-    .carta-logo span { color: var(--verde); }
-    .carta-logo em   { color: var(--rojo); font-style: normal; }
+    .logo em { color: var(--rojo); font-style: normal; }
     .btn-volver {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: rgba(255,255,255,0.55);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.4rem;
+      color: rgba(242,236,213,0.5); text-decoration: none;
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
       transition: color 0.2s;
     }
-    .btn-volver:hover { color: white; }
-    .btn-volver svg { width: 16px; height: 16px; }
+    .btn-volver:hover { color: var(--crema); }
+    .flag-bar { height: 4px; background: var(--rojo); }
 
-    /* ===== BANDERA ===== */
-    .flag-bar {
-      height: 5px;
-      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
-      position: relative;
-      z-index: 1;
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; z-index: 1;
+      text-align: center; padding: 50px 5vw 30px;
     }
-
-    /* ===== HERO TITULO ===== */
-    .carta-hero {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 60px 5vw 40px;
+    .hero-label {
+      font-family: 'Segoe Script', 'Brush Script MT', cursive;
+      font-size: 1.1rem; color: var(--rojo);
+      margin-bottom: 0.5rem;
     }
-    .carta-hero h1 {
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      line-height: 1.1;
+    .hero h1 {
+      font-size: clamp(2.2rem, 7vw, 4rem);
+      text-transform: uppercase; line-height: 1;
     }
-    .carta-hero h1 span { color: var(--rojo); }
-    .carta-hero p {
-      margin-top: 0.75rem;
-      color: rgba(255,255,255,0.4);
-      font-size: 0.9rem;
-      letter-spacing: 2px;
+    .hero h1 em { color: var(--rojo); font-style: normal; }
+    .hero-sub {
+      margin-top: 0.6rem;
+      color: rgba(242,236,213,0.45);
+      font-size: 0.82rem; letter-spacing: 2px;
     }
 
-    /* ===== TABS ===== */
-    .menu-tabs {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 2.5rem;
-      position: relative;
-      z-index: 2;
-      padding: 0 5vw;
+    /* ===== TABS PRINCIPALES ===== */
+    .main-tabs {
+      position: relative; z-index: 1;
+      display: flex; gap: 0.4rem;
+      justify-content: center; flex-wrap: wrap;
+      padding: 20px 5vw 0;
     }
-    .menu-tab {
-      padding: 0.45rem 1.1rem;
-      border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.18);
+    .main-tab {
+      padding: 0.55rem 1.3rem;
+      border-radius: 4px;
+      border: 1px solid rgba(242,236,213,0.2);
       background: transparent;
-      color: rgba(255,255,255,0.5);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.25s;
-      font-family: inherit;
+      color: rgba(242,236,213,0.5);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.25s;
     }
-    .menu-tab:hover { color: white; border-color: rgba(255,255,255,0.45); }
-    .menu-tab.active { background: var(--rojo); border-color: var(--rojo); color: white; }
+    .main-tab:hover { color: var(--crema); border-color: rgba(242,236,213,0.5); }
+    .main-tab.active { background: var(--rojo); border-color: var(--rojo); color: white; }
 
-    /* ===== CARRUSEL ===== */
-    .carousel-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ===== SUB TABS ===== */
+    .sub-tabs {
+      position: relative; z-index: 1;
+      display: flex; gap: 0.35rem;
+      justify-content: center; flex-wrap: wrap;
+      padding: 14px 5vw 0;
+      transition: opacity 0.3s ease;
+    }
+    .sub-tabs.hidden { opacity: 0; pointer-events: none; height: 0; padding: 0; overflow: hidden; }
+    .sub-tab {
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      border: 1px solid rgba(242,236,213,0.15);
+      background: transparent;
+      color: rgba(242,236,213,0.4);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .sub-tab:hover { color: var(--crema); border-color: rgba(242,236,213,0.4); }
+    .sub-tab.active { background: rgba(220,56,48,0.2); border-color: var(--rojo); color: var(--crema); }
+
+    /* ===== CONTENIDO ===== */
+    .content {
+      position: relative; z-index: 1;
+      padding: 30px 5vw 60px;
+    }
+    .panel { display: none; }
+    .panel.active {
+      display: block;
+      animation: fadeIn 0.35s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== GRID DE PLATOS ===== */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
-      padding: 0 1rem;
-      z-index: 2;
     }
-    .carousel-btn {
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.05);
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.25s;
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      backdrop-filter: blur(4px);
+    .menu-section-title {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.5rem 0 0.5rem;
     }
-    .carousel-btn:hover { background: var(--rojo); border-color: var(--rojo); transform: scale(1.08); }
-    .carousel-viewport {
-      width: 100%;
-      max-width: 980px;
-      height: 490px;
-      position: relative;
-      overflow: visible;
+    .menu-section-title h2 {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      text-transform: uppercase; color: var(--crema);
+      white-space: nowrap;
     }
-    .carousel-track {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .menu-section-title::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: var(--borde);
     }
-    .c-card {
-      position: absolute;
-      width: 285px;
-      border-radius: 18px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                  opacity 0.5s ease,
-                  box-shadow 0.5s ease;
-      will-change: transform, opacity;
-      border: 1px solid rgba(255,255,255,0.07);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    }
-    .c-card.active { box-shadow: 0 28px 65px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.1); cursor: default; }
-    .c-card-img { width: 100%; height: 210px; object-fit: cover; display: block; }
-    .c-card-grad {
-      width: 100%; height: 210px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4.5rem;
-    }
-    .c-card-body { background: #181818; padding: 1.4rem; }
-    .c-card-cat {
-      font-size: 0.67rem; letter-spacing: 3px; text-transform: uppercase;
-      font-weight: 700; margin-bottom: 0.4rem; color: var(--verde);
-    }
-    .c-card-name { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; line-height: 1.2; }
-    .c-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.48); line-height: 1.6; margin-top: 0.5rem; }
-    .c-card-price { margin-top: 1rem; font-size: 1.35rem; font-weight: 900; color: var(--rojo); }
+    .menu-section-title:first-child { margin-top: 0; }
 
-    .carousel-dots {
-      display: flex; gap: 0.5rem; justify-content: center;
-      margin-top: 2.5rem; position: relative; z-index: 2;
+    .plato {
+      background: var(--card);
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+      display: flex; flex-direction: column;
+      gap: 0.3rem;
+      transition: border-color 0.25s, transform 0.25s;
     }
-    .c-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: rgba(255,255,255,0.22); cursor: pointer;
-      transition: all 0.3s; border: none; padding: 0;
+    .plato:hover {
+      border-color: rgba(220,56,48,0.4);
+      transform: translateY(-2px);
     }
-    .c-dot.active { background: var(--rojo); width: 24px; border-radius: 4px; }
+    .plato-cat {
+      font-family: 'Segoe Script', 'Brush Script MT', cursive;
+      font-size: 0.8rem; color: var(--rojo);
+    }
+    .plato-nombre {
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: 1rem; text-transform: uppercase;
+      line-height: 1.2; color: var(--crema);
+    }
+    .plato-desc {
+      font-size: 0.75rem;
+      color: rgba(242,236,213,0.45);
+      line-height: 1.55; flex: 1;
+    }
+    .plato-footer {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-top: 0.4rem;
+    }
+    .plato-precio {
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: 1.15rem; color: var(--rojo);
+    }
+    .plato-tag {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 50px;
+      background: rgba(220,56,48,0.2);
+      color: var(--rojo); border: 1px solid rgba(220,56,48,0.4);
+    }
 
-    .menu-note {
-      text-align: center; margin-top: 3rem; padding-bottom: 60px;
-      color: rgba(255,255,255,0.3); font-size: 0.85rem;
-      position: relative; z-index: 2;
+    /* ===== BEBIDAS ===== */
+    .bebidas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem 2rem;
     }
-    .menu-note strong { color: var(--verde); }
+    .bebida-seccion h3 {
+      font-size: 1.1rem; text-transform: uppercase;
+      color: var(--crema); margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--borde);
+    }
+    .bebida-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .bebida-item {
+      display: flex; justify-content: space-between;
+      align-items: baseline; gap: 0.5rem;
+    }
+    .bebida-nombre {
+      font-size: 0.85rem; color: rgba(242,236,213,0.75);
+      flex: 1;
+    }
+    .bebida-nombre small {
+      font-size: 0.7rem; color: rgba(242,236,213,0.4);
+      display: block; margin-top: 1px;
+    }
+    .bebida-precio {
+      font-weight: 700; font-size: 0.85rem;
+      color: var(--rojo); white-space: nowrap;
+    }
+    .bebida-divider {
+      grid-column: 1 / -1;
+      height: 1px; background: var(--borde);
+      margin: 0.5rem 0;
+    }
+
+    /* ===== DOMINGO ===== */
+    .domingo-header {
+      text-align: center; margin-bottom: 2rem;
+      padding: 1.5rem; background: var(--card);
+      border: 1px solid var(--borde); border-radius: 10px;
+    }
+    .domingo-header h2 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      text-transform: uppercase; margin-bottom: 0.3rem;
+    }
+    .domingo-header p {
+      font-size: 0.82rem; color: rgba(242,236,213,0.5);
+      letter-spacing: 1px;
+    }
+    .domingo-header .hora {
+      display: inline-block; margin-top: 0.5rem;
+      padding: 0.3rem 1rem; border-radius: 50px;
+      background: rgba(220,56,48,0.15);
+      border: 1px solid rgba(220,56,48,0.4);
+      color: var(--rojo); font-size: 0.78rem; font-weight: 700;
+    }
+
+    /* ===== NOTA PIE ===== */
+    .nota-pie {
+      text-align: center; margin-top: 2.5rem;
+      color: rgba(242,236,213,0.3); font-size: 0.8rem;
+    }
+    .nota-pie strong { color: var(--rojo); }
+    .picante-note {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1rem; padding: 0.5rem 1.2rem;
+      border: 1px solid rgba(220,56,48,0.3);
+      border-radius: 50px; color: rgba(242,236,213,0.45);
+      font-size: 0.78rem;
+    }
 
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
-      .carousel-btn { width: 38px; height: 38px; font-size: 1rem; }
-      .c-card { width: 76vw; max-width: 300px; }
-      .carousel-viewport { height: 520px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .bebidas-grid { grid-template-columns: 1fr; }
+      .main-tab { font-size: 0.7rem; padding: 0.45rem 0.9rem; }
     }
     @media (max-width: 480px) {
-      .carousel-btn { display: none; }
-      .c-card { width: 82vw; }
+      .hero { padding: 35px 4vw 20px; }
+      .content { padding: 20px 4vw 50px; }
     }
   </style>
 </head>
 <body>
 
-  <header class="carta-header">
-    <a href="../" class="carta-logo"><span>Jefe</span> <em>de Jefes</em></a>
+  <header class="header">
+    <a href="../" class="logo">Jefe <em>de Jefes</em></a>
     <a href="../" class="btn-volver">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Volver al inicio
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Volver
     </a>
   </header>
-
   <div class="flag-bar"></div>
 
-  <div class="carta-hero">
-    <h1>Nuestra <span>Carta</span></h1>
-    <p>Desliza para explorar · Toca para ver el plato</p>
+  <div class="hero">
+    <p class="hero-label">Casa Mexicana · Madrid</p>
+    <h1>Nuestra <em>Carta</em></h1>
+    <p class="hero-sub">Si quieres picante, pídelo al camarero 🌶️</p>
   </div>
 
-  <div class="menu-tabs">
-    <button class="menu-tab active" data-cat="all">Todo</button>
-    <button class="menu-tab" data-cat="entrante">Entrantes</button>
-    <button class="menu-tab" data-cat="tacos">Tacos</button>
-    <button class="menu-tab" data-cat="burritos">Burritos</button>
-    <button class="menu-tab" data-cat="especialidad">Especialidades</button>
-    <button class="menu-tab" data-cat="bebidas">Bebidas</button>
+  <!-- TABS PRINCIPALES -->
+  <div class="main-tabs">
+    <button class="main-tab active" data-panel="dia">Carta del día</button>
+    <button class="main-tab" data-panel="tarde">Tarde · 16–20h</button>
+    <button class="main-tab" data-panel="domingo">Domingo · 11–13h</button>
+    <button class="main-tab" data-panel="bebidas">Bebidas</button>
   </div>
 
-  <div class="carousel-wrap">
-    <button class="carousel-btn" id="prevBtn">&#8592;</button>
-    <div class="carousel-viewport">
-      <div class="carousel-track" id="carouselTrack">
+  <!-- SUB TABS (solo para carta día y tarde) -->
+  <div class="sub-tabs" id="subTabs">
+    <button class="sub-tab active" data-cat="todo">Todo</button>
+    <button class="sub-tab" data-cat="entrante">Entrantes</button>
+    <button class="sub-tab" data-cat="tacos">Tacos y más</button>
+    <button class="sub-tab" data-cat="especialidad">Especialidades</button>
+    <button class="sub-tab" data-cat="postre">Postres</button>
+  </div>
 
-        <div class="c-card" data-cat="entrante">
-          <img class="c-card-img" src="../assets/guacamole.jpg" alt="Guacamole" loading="lazy"/>
-          <div class="c-card-body">
-            <p class="c-card-cat">Entrante</p>
-            <h3 class="c-card-name">Guacamole con Totopos</h3>
-            <p class="c-card-desc">Aguacate machacado al momento con tomate, cebolla, cilantro y chile jalapeño fresco.</p>
-            <p class="c-card-price">8€</p>
+  <div class="content">
+
+    <!-- ===== CARTA DEL DÍA ===== -->
+    <div class="panel active" id="panel-dia">
+      <div class="menu-grid" id="grid-dia">
+
+        <div class="menu-section-title" data-section="entrante"><h2>Calentando motores</h2></div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante</span>
+          <h3 class="plato-nombre">Totopos Clásicos</h3>
+          <p class="plato-desc">Triángulos de maíz artesanales, salsa de frijol, salsa de guajillo, pico de gallo, jalapeños y salsa de aguacate.</p>
+          <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante · Media ración</span>
+          <h3 class="plato-nombre">Totopitos Clásicos</h3>
+          <p class="plato-desc">Media ración de totopos clásicos. Añade tinga +1€ · cochinita +2€ · guacamole +5,50€</p>
+          <div class="plato-footer"><span class="plato-precio">8,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante</span>
+          <h3 class="plato-nombre">Guacamole</h3>
+          <p class="plato-desc">Aguacate fresco, pico de gallo y totopos artesanales.</p>
+          <div class="plato-footer"><span class="plato-precio">11,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante</span>
+          <h3 class="plato-nombre">Chilaquiles al Guajillo</h3>
+          <p class="plato-desc">Totopos en salsa de guajillo con queso, crema y cebolla morada.</p>
+          <div class="plato-footer"><span class="plato-precio">14,90€</span></div>
+        </div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante</span>
+          <h3 class="plato-nombre">Queso Fundido del Jefe</h3>
+          <p class="plato-desc">Queso fundido con secreto ibérico y tortillas de maíz artesanales.</p>
+          <div class="plato-footer"><span class="plato-precio">14,90€</span></div>
+        </div>
+
+        <div class="menu-section-title" data-section="tacos"><h2>Los de la vieja escuela</h2></div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Cochinita Pibil</h3>
+          <p class="plato-desc">Cerdo marinado en achiote y cebolla morada encurtida.</p>
+          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Tinga</h3>
+          <p class="plato-desc">Pollo desmechado con salsa de tomate casera y chile chipotle.</p>
+          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Pastor</h3>
+          <p class="plato-desc">Cerdo marinado en achiote y especias con piña fresca, cebolla y cilantro.</p>
+          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Birria</h3>
+          <p class="plato-desc">Guiso de ternera desmechada en chiles secos y especias, cilantro, cebolla y salsa de aguacate.</p>
+          <div class="plato-footer"><span class="plato-precio">10,90€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Clásico · 4 uds.</span>
+          <h3 class="plato-nombre">Enchiladas Rojas</h3>
+          <p class="plato-desc">Tortillas rellenas de pollo bañadas en salsa de chile guajillo con queso y crema agria.</p>
+          <div class="plato-footer"><span class="plato-precio">18,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Para compartir · 8 uds.</span>
+          <h3 class="plato-nombre">Mix de 8 Tacos</h3>
+          <p class="plato-desc">Surtido de 8 tacos variados: cochinita, tinga, birria y alambre de lomo.</p>
+          <div class="plato-footer"><span class="plato-precio">21,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Para los frijoleros · 3 uds.</span>
+          <h3 class="plato-nombre">Sincronizadas</h3>
+          <p class="plato-desc">Tortillas de trigo rellenas de queso fundido y jamón york.</p>
+          <div class="plato-footer"><span class="plato-precio">7,50€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Para los frijoleros · 3 uds.</span>
+          <h3 class="plato-nombre">Tacos de Lomo Adobado</h3>
+          <p class="plato-desc">Tacos de lomo de cerdo adobado a la plancha con guacamole de la casa.</p>
+          <div class="plato-footer"><span class="plato-precio">7,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Para los frijoleros · 3 uds.</span>
+          <h3 class="plato-nombre">Choriqueso</h3>
+          <p class="plato-desc">Tortillas de maíz con chorizo asado y queso fundido Oaxaca.</p>
+          <div class="plato-footer"><span class="plato-precio">7,00€</span></div>
+        </div>
+
+        <div class="menu-section-title" data-section="especialidad"><h2>Los atrevidos</h2></div>
+
+        <div class="plato" data-cat="especialidad">
+          <span class="plato-cat">Especialidad · 4 uds.</span>
+          <h3 class="plato-nombre">Costra Marrano</h3>
+          <p class="plato-desc">Chuleta de cerdo, bacon, jamón york y queso. Servida en tortillas de maíz con salsa verde.</p>
+          <div class="plato-footer">
+            <span class="plato-precio">13,90€</span>
+            <span class="plato-tag">⭐ Ruta San Blas</span>
           </div>
         </div>
 
-        <div class="c-card" data-cat="entrante">
-          <div class="c-card-grad" style="background: linear-gradient(135deg,#b45309,#78350f);">🧀</div>
-          <div class="c-card-body">
-            <p class="c-card-cat">Entrante</p>
-            <h3 class="c-card-name">Nachos Especiales</h3>
-            <p class="c-card-desc">Totopos crujientes con queso fundido, jalapeños, crema agria y pico de gallo casero.</p>
-            <p class="c-card-price">9€</p>
+        <div class="plato" data-cat="especialidad">
+          <span class="plato-cat">Especialidad · 9 uds.</span>
+          <h3 class="plato-nombre">Discada</h3>
+          <p class="plato-desc">Mezcla de carnes (cerdo, chorizo, bacon, jamón) cocinadas en disco con verduras y especias.</p>
+          <div class="plato-footer">
+            <span class="plato-precio">24,90€</span>
+            <span class="plato-tag">🔥 El más pedido</span>
           </div>
         </div>
 
-        <div class="c-card" data-cat="entrante">
-          <img class="c-card-img" src="../assets/plato 1.jpg" alt="Quesadilla" loading="lazy"/>
-          <div class="c-card-body">
-            <p class="c-card-cat">Entrante</p>
-            <h3 class="c-card-name">Quesadilla de Pollo</h3>
-            <p class="c-card-desc">Tortilla de harina con pollo asado, queso Oaxaca fundido y guacamole de la casa.</p>
-            <p class="c-card-price">10€</p>
+        <div class="plato" data-cat="especialidad">
+          <span class="plato-cat">Especialidad · 3 uds.</span>
+          <h3 class="plato-nombre">Quesabirrias</h3>
+          <p class="plato-desc">Tortillas de maíz con queso fundido y birria desmechada. Se sirven con consomé.</p>
+          <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
+        </div>
+
+        <div class="plato" data-cat="especialidad">
+          <span class="plato-cat">Especialidad · 3 uds.</span>
+          <h3 class="plato-nombre">Cochilocs</h3>
+          <p class="plato-desc">Tacos de cochinita pibil con costra de queso fundido y salsa de la casa.</p>
+          <div class="plato-footer">
+            <span class="plato-precio">15,90€</span>
+            <span class="plato-tag">Nuevo</span>
           </div>
         </div>
 
-        <div class="c-card" data-cat="tacos">
-          <div class="c-card-grad" style="background: linear-gradient(135deg,#991b1b,#6b1717);">🌮</div>
-          <div class="c-card-body">
-            <p class="c-card-cat">Tacos</p>
-            <h3 class="c-card-name">Tacos al Pastor</h3>
-            <p class="c-card-desc">3 tacos de cerdo marinado en achiote con piña fresca, cebolla morada y cilantro.</p>
-            <p class="c-card-price">11€</p>
+        <div class="plato" data-cat="especialidad">
+          <span class="plato-cat">Especialidad · 4 uds.</span>
+          <h3 class="plato-nombre">Cachetadas de Chorizo</h3>
+          <p class="plato-desc">Tortillas de trigo rellenas de queso planchado con chorizo asado, cebolla, cilantro y salsa de la casa.</p>
+          <div class="plato-footer">
+            <span class="plato-precio">12,90€</span>
+            <span class="plato-tag">Nuevo</span>
           </div>
         </div>
 
-        <div class="c-card" data-cat="tacos">
-          <img class="c-card-img" src="../assets/machete birria.jpg" alt="Tacos de Birria" loading="lazy"/>
-          <div class="c-card-body">
-            <p class="c-card-cat">Tacos · Estrella</p>
-            <h3 class="c-card-name">Tacos de Birria</h3>
-            <p class="c-card-desc">3 tacos con carne deshebrada, cebolla, cilantro y salsa roja. Se sirven con consomé.</p>
-            <p class="c-card-price">13€</p>
+        <div class="plato" data-cat="especialidad">
+          <span class="plato-cat">Especialidad</span>
+          <h3 class="plato-nombre">Huarache Perrón</h3>
+          <p class="plato-desc">Masa de maíz alargada con frijoles, queso, nata, carne deshebrada y salsa roja.</p>
+          <div class="plato-footer">
+            <span class="plato-precio">16,50€</span>
+            <span class="plato-tag">Nuevo</span>
           </div>
         </div>
 
-        <div class="c-card" data-cat="tacos">
-          <div class="c-card-grad" style="background: linear-gradient(135deg,#c2410c,#7c2d12);">🌶️</div>
-          <div class="c-card-body">
-            <p class="c-card-cat">Tacos</p>
-            <h3 class="c-card-name">Tacos de Cochinita</h3>
-            <p class="c-card-desc">3 tacos de cochinita pibil con achiote y cebolla morada encurtida en naranja agria.</p>
-            <p class="c-card-price">12€</p>
+        <div class="plato" data-cat="especialidad">
+          <span class="plato-cat">Especialidad · 4 uds.</span>
+          <h3 class="plato-nombre">Barbacoa de Cordero</h3>
+          <p class="plato-desc">Tortillas de maíz con barbacoa de cordero desmechada, cebolla, cilantro y salsa verde.</p>
+          <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
+        </div>
+
+        <div class="menu-section-title" data-section="postre"><h2>El final feliz</h2></div>
+
+        <div class="plato" data-cat="postre">
+          <span class="plato-cat">Postre</span>
+          <h3 class="plato-nombre">Carlota de Limón</h3>
+          <p class="plato-desc">Clásico mexicano de galleta, nata y crema de limón.</p>
+          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="postre">
+          <span class="plato-cat">Postre</span>
+          <h3 class="plato-nombre">Tres Leches</h3>
+          <p class="plato-desc">Bizcocho empapado en tres tipos de leche: evaporada, condensada y nata.</p>
+          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="postre">
+          <span class="plato-cat">Postre</span>
+          <h3 class="plato-nombre">Tarta de Temporada</h3>
+          <p class="plato-desc">Consultar al camarero. Cambia según la temporada.</p>
+          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+        </div>
+
+      </div><!-- /menu-grid -->
+      <div class="nota-pie">
+        Precios con IVA · <strong>643 114 833</strong> · Av. de Niza, 51 · San Blas, Madrid
+        <div class="picante-note">🌶️ Si quieres picante, pídelo al camarero</div>
+      </div>
+    </div><!-- /panel-dia -->
+
+    <!-- ===== CARTA TARDE 16-20h ===== -->
+    <div class="panel" id="panel-tarde">
+      <div class="menu-grid" id="grid-tarde">
+
+        <div class="menu-section-title"><h2>Entrantes</h2></div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante</span>
+          <h3 class="plato-nombre">Totopos Clásicos</h3>
+          <p class="plato-desc">Triángulos de maíz artesanales, salsa de frijol, salsa de guajillo, pico de gallo, jalapeños y salsa de aguacate.</p>
+          <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante · Media ración</span>
+          <h3 class="plato-nombre">Totopitos Clásicos</h3>
+          <p class="plato-desc">Media ración. Añade tinga +1€ · cochinita +2€</p>
+          <div class="plato-footer"><span class="plato-precio">8,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="entrante">
+          <span class="plato-cat">Entrante</span>
+          <h3 class="plato-nombre">Guacamole</h3>
+          <p class="plato-desc">Aguacate fresco, pico de gallo y totopos artesanales.</p>
+          <div class="plato-footer"><span class="plato-precio">11,00€</span></div>
+        </div>
+
+        <div class="menu-section-title"><h2>Tacos y más</h2></div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Cochinita Pibil</h3>
+          <p class="plato-desc">Cerdo marinado en achiote y cebolla morada encurtida.</p>
+          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Tinga</h3>
+          <p class="plato-desc">Pollo desmechado con salsa de tomate casera y chile chipotle.</p>
+          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Birria</h3>
+          <p class="plato-desc">Guiso de ternera en chiles secos y especias, cilantro, cebolla y salsa de aguacate.</p>
+          <div class="plato-footer"><span class="plato-precio">10,90€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Para compartir · 8 uds.</span>
+          <h3 class="plato-nombre">Mix de 8 Tacos</h3>
+          <p class="plato-desc">Surtido de cochinita, tinga, birria y alambre de lomo.</p>
+          <div class="plato-footer"><span class="plato-precio">21,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Especialidad · 4 uds.</span>
+          <h3 class="plato-nombre">Cachetadas de Chorizo</h3>
+          <p class="plato-desc">Tortillas de trigo con queso planchado, chorizo asado, cebolla, cilantro y salsa de la casa.</p>
+          <div class="plato-footer"><span class="plato-precio">12,50€</span></div>
+        </div>
+
+        <div class="plato" data-cat="tacos">
+          <span class="plato-cat">Para los frijoleros · 3 uds.</span>
+          <h3 class="plato-nombre">Sincronizadas</h3>
+          <p class="plato-desc">Tortillas de trigo rellenas de queso fundido y jamón york.</p>
+          <div class="plato-footer"><span class="plato-precio">7,50€</span></div>
+        </div>
+
+        <div class="menu-section-title"><h2>Postres</h2></div>
+
+        <div class="plato" data-cat="postre">
+          <span class="plato-cat">Postre</span>
+          <h3 class="plato-nombre">Carlota de Limón</h3>
+          <p class="plato-desc">Clásico mexicano de galleta, nata y crema de limón.</p>
+          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="postre">
+          <span class="plato-cat">Postre</span>
+          <h3 class="plato-nombre">Tres Leches</h3>
+          <p class="plato-desc">Bizcocho empapado en tres tipos de leche.</p>
+          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+        </div>
+
+        <div class="plato" data-cat="postre">
+          <span class="plato-cat">Postre</span>
+          <h3 class="plato-nombre">Tarta de Temporada</h3>
+          <p class="plato-desc">Preguntar al camarero.</p>
+          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+        </div>
+
+      </div>
+      <div class="nota-pie">Disponible de 16:00 a 20:00h · Precios con IVA incluido</div>
+    </div><!-- /panel-tarde -->
+
+    <!-- ===== CARTA DOMINGO ===== -->
+    <div class="panel" id="panel-domingo">
+      <div class="domingo-header">
+        <h2>Carta del <em style="color:var(--rojo);font-style:normal">Domingo</em></h2>
+        <p>Menú especial de brunch</p>
+        <span class="hora">Domingos · 11:00 a 13:00h</span>
+      </div>
+      <div class="menu-grid">
+
+        <div class="plato">
+          <span class="plato-cat">Plato · 3 uds.</span>
+          <h3 class="plato-nombre">Barbacoa de Cordero</h3>
+          <p class="plato-desc">Tortillas de maíz con barbacoa de cordero desmechada, cebolla y cilantro.</p>
+          <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Plato</span>
+          <h3 class="plato-nombre">Chilaquiles</h3>
+          <p class="plato-desc">De huevo con chorizo. Totopos en salsa con queso, crema y cebolla.</p>
+          <div class="plato-footer"><span class="plato-precio">14,90€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Plato · 4 uds.</span>
+          <h3 class="plato-nombre">Enchiladas</h3>
+          <p class="plato-desc">Tortillas rellenas bañadas en salsa de guajillo con queso y crema.</p>
+          <div class="plato-footer"><span class="plato-precio">18,00€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Plato</span>
+          <h3 class="plato-nombre">Menudo</h3>
+          <p class="plato-desc">Guiso tradicional mexicano de callos en caldo de chile rojo con orégano y lima.</p>
+          <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Plato · 3 uds.</span>
+          <h3 class="plato-nombre">Barbacoa de Borrego</h3>
+          <p class="plato-desc">Tortillas con barbacoa de borrego, cebolla morada, cilantro y salsa verde.</p>
+          <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Quesadilla de masa</span>
+          <h3 class="plato-nombre">Quesadilla de Masa</h3>
+          <p class="plato-desc">Clásica 13€ · Tinga 14€ · Cochinita 14€ · Birria 16€</p>
+          <div class="plato-footer"><span class="plato-precio">desde 13,00€</span></div>
+        </div>
+
+      </div>
+      <div class="nota-pie">Solo disponible domingos de 11:00 a 13:00h · <strong>643 114 833</strong></div>
+    </div><!-- /panel-domingo -->
+
+    <!-- ===== BEBIDAS ===== -->
+    <div class="panel" id="panel-bebidas">
+      <div class="bebidas-grid">
+
+        <div class="bebida-seccion">
+          <h3>🍺 Cervezas</h3>
+          <div class="bebida-list">
+            <div class="bebida-item"><span class="bebida-nombre">Caña</span><span class="bebida-precio">1,90€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Doble Mahou</span><span class="bebida-precio">2,90€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Tercio Mahou</span><span class="bebida-precio">3,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Mahou sin gluten</span><span class="bebida-precio">3,30€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Mahou tostada 0,0</span><span class="bebida-precio">3,10€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Jarra cerveza 0,5L</span><span class="bebida-precio">5,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Corona</span><span class="bebida-precio">3,60€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Negra Modelo</span><span class="bebida-precio">3,60€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Modelo Especial</span><span class="bebida-precio">3,60€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Pacífico</span><span class="bebida-precio">3,60€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Corona 0,0</span><span class="bebida-precio">3,80€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Desperados</span><span class="bebida-precio">3,60€</span></div>
           </div>
         </div>
 
-        <div class="c-card" data-cat="burritos">
-          <div class="c-card-grad" style="background: linear-gradient(135deg,#166534,#14532d);">🌯</div>
-          <div class="c-card-body">
-            <p class="c-card-cat">Burritos</p>
-            <h3 class="c-card-name">Burrito de Pollo</h3>
-            <p class="c-card-desc">Tortilla XL con pollo a la plancha, arroz, frijoles, queso, guacamole y pico de gallo.</p>
-            <p class="c-card-price">12€</p>
+        <div class="bebida-seccion">
+          <h3>🍹 Cócteles y combinados</h3>
+          <div class="bebida-list">
+            <div class="bebida-item"><span class="bebida-nombre">Margarita clásica</span><span class="bebida-precio">7,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Margarita de sabor</span><span class="bebida-precio">8,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Jarra margarita clásica (1L)</span><span class="bebida-precio">27,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Paloma <small>tequila, pomelo y lima</small></span><span class="bebida-precio">7,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Clamatada <small>ojo rojo</small></span><span class="bebida-precio">8,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Michelada</span><span class="bebida-precio">7,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Chelada</span><span class="bebida-precio">6,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Carajillo mexicano</span><span class="bebida-precio">5,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Combinados <small>ginebra, ron, whisky, vodka</small></span><span class="bebida-precio">6,50€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Combinado Jack Daniels</span><span class="bebida-precio">8,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Tinto de verano</span><span class="bebida-precio">3,00€</span></div>
           </div>
         </div>
 
-        <div class="c-card" data-cat="burritos">
-          <div class="c-card-grad" style="background: linear-gradient(135deg,#7c2d12,#5a1f0a);">🥩</div>
-          <div class="c-card-body">
-            <p class="c-card-cat">Burritos</p>
-            <h3 class="c-card-name">Burrito de Carne</h3>
-            <p class="c-card-desc">Tortilla XL con carne deshebrada, arroz, frijoles refritos, queso cheddar y jalapeños.</p>
-            <p class="c-card-price">14€</p>
+        <div class="bebida-seccion">
+          <h3>💧 Refrescos y aguas</h3>
+          <div class="bebida-list">
+            <div class="bebida-item"><span class="bebida-nombre">Agua natural</span><span class="bebida-precio">2,50€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Agua con gas</span><span class="bebida-precio">3,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Refrescos</span><span class="bebida-precio">3,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Zumo de piña</span><span class="bebida-precio">2,10€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Jarritos</span><span class="bebida-precio">4,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Aguas de sabor <small>Jamaica, tamarindo, mango</small></span><span class="bebida-precio">3,00€</span></div>
           </div>
         </div>
 
-        <div class="c-card" data-cat="especialidad">
-          <img class="c-card-img" src="../assets/machete chicharron.jpg" alt="Machete Chicharrón" loading="lazy"/>
-          <div class="c-card-body">
-            <p class="c-card-cat">Especialidad</p>
-            <h3 class="c-card-name">Machete Chicharrón</h3>
-            <p class="c-card-desc">Tortilla gigante con chicharrón en salsa verde, crema y queso rallado. Imprescindible.</p>
-            <p class="c-card-price">14€</p>
+        <div class="bebida-seccion">
+          <h3>🍷 Vinos, Tequila y Mezcal</h3>
+          <div class="bebida-list">
+            <div class="bebida-item"><span class="bebida-nombre">Copa verdejo</span><span class="bebida-precio">3,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Copa rioja/ribera</span><span class="bebida-precio">3,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Botella de vino</span><span class="bebida-precio">16,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Vermout</span><span class="bebida-precio">3,00€</span></div>
           </div>
-        </div>
-
-        <div class="c-card" data-cat="especialidad">
-          <img class="c-card-img" src="../assets/enchilada.jpg" alt="Enchiladas Rojas" loading="lazy"/>
-          <div class="c-card-body">
-            <p class="c-card-cat">Clásicos</p>
-            <h3 class="c-card-name">Enchiladas Rojas</h3>
-            <p class="c-card-desc">Tortillas rellenas de pollo bañadas en salsa de chile guajillo con queso y crema agria.</p>
-            <p class="c-card-price">12€</p>
-          </div>
-        </div>
-
-        <div class="c-card" data-cat="bebidas">
-          <div class="c-card-grad" style="background: linear-gradient(135deg,#4d7c0f,#2d4a08);">🍹</div>
-          <div class="c-card-body">
-            <p class="c-card-cat">Bebidas</p>
-            <h3 class="c-card-name">Margarita Clásica</h3>
-            <p class="c-card-desc">Tequila blanco, triple sec y zumo de lima natural. Servida con sal en el borde.</p>
-            <p class="c-card-price">9€</p>
-          </div>
-        </div>
-
-        <div class="c-card" data-cat="bebidas">
-          <div class="c-card-grad" style="background: linear-gradient(135deg,#1e3a5f,#0d2040);">🍺</div>
-          <div class="c-card-body">
-            <p class="c-card-cat">Bebidas</p>
-            <h3 class="c-card-name">Michelada</h3>
-            <p class="c-card-desc">Cerveza con limón, salsa Worcestershire, Maggi y chile en polvo. Muy refrescante.</p>
-            <p class="c-card-price">8€</p>
+          <br>
+          <div class="bebida-list">
+            <div class="bebida-item"><span class="bebida-nombre" style="font-weight:700;color:var(--crema)">— Chupitos —</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Tequila 1800 reposado</span><span class="bebida-precio">6,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Tequila 1800 cristalino</span><span class="bebida-precio">7,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Tequila Don Julio 70</span><span class="bebida-precio">10,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Tequila Maestro Dobel</span><span class="bebida-precio">7,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">José Cuervo Blanco</span><span class="bebida-precio">2,50€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Crema de tequila</span><span class="bebida-precio">2,00€</span></div>
+            <div class="bebida-item"><span class="bebida-nombre">Mezcal Buen Bicho</span><span class="bebida-precio">6,00€</span></div>
           </div>
         </div>
 
       </div>
-    </div>
-    <button class="carousel-btn" id="nextBtn">&#8594;</button>
-  </div>
+      <div class="nota-pie">Precios con IVA incluido</div>
+    </div><!-- /panel-bebidas -->
 
-  <div class="carousel-dots" id="carouselDots"></div>
-
-  <p class="menu-note">Precios con IVA incluido · <strong>643 114 833</strong> · Av. de Niza, 51 · Madrid</p>
+  </div><!-- /content -->
 
   <script>
-    (function() {
-      const track    = document.getElementById('carouselTrack');
-      const dotsWrap = document.getElementById('carouselDots');
-      const prevBtn  = document.getElementById('prevBtn');
-      const nextBtn  = document.getElementById('nextBtn');
-      const tabs     = document.querySelectorAll('.menu-tab');
+    // ===== TABS PRINCIPALES =====
+    const mainTabs  = document.querySelectorAll('.main-tab');
+    const panels    = document.querySelectorAll('.panel');
+    const subTabs   = document.getElementById('subTabs');
+    const panelsWithSub = ['panel-dia', 'panel-tarde'];
 
-      let allCards = Array.from(track.querySelectorAll('.c-card'));
-      let visible  = [...allCards];
-      let idx = 0;
+    mainTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        mainTabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const panel = document.getElementById('panel-' + tab.dataset.panel);
+        panel.classList.add('active');
 
-      function buildDots() {
-        dotsWrap.innerHTML = '';
-        visible.forEach((_, i) => {
-          const d = document.createElement('button');
-          d.className = 'c-dot' + (i === idx ? ' active' : '');
-          d.addEventListener('click', () => goTo(i));
-          dotsWrap.appendChild(d);
-        });
-      }
+        // Mostrar/ocultar sub tabs
+        if (panelsWithSub.includes(panel.id)) {
+          subTabs.classList.remove('hidden');
+          // Reset sub tab a "todo"
+          document.querySelectorAll('.sub-tab').forEach(s => s.classList.remove('active'));
+          document.querySelector('.sub-tab[data-cat="todo"]').classList.add('active');
+          filterGrid(panel.querySelector('.menu-grid'), 'todo');
+        } else {
+          subTabs.classList.add('hidden');
+        }
+      });
+    });
 
-      function render() {
-        const cardW = (visible[0] ? visible[0].offsetWidth : 285) + 10;
-        allCards.forEach(c => { c.style.opacity = '0'; c.style.zIndex = '0'; c.style.pointerEvents = 'none'; });
-        visible.forEach((card, i) => {
-          const off = i - idx;
-          const abs = Math.abs(off);
-          if (abs > 2) return;
-          const s = [1, 0.82, 0.65][abs];
-          const o = [1, 0.65, 0.35][abs];
-          const tx = off * cardW;
-          card.style.transform = `translateX(${tx}px) scale(${s})`;
-          card.style.opacity   = o;
-          card.style.zIndex    = 10 - abs;
-          card.style.pointerEvents = abs === 0 ? 'auto' : 'none';
-          card.classList.toggle('active', off === 0);
-        });
-        document.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-      }
+    // ===== SUB TABS (filtro categoría) =====
+    document.querySelectorAll('.sub-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const activePanel = document.querySelector('.panel.active');
+        const grid = activePanel ? activePanel.querySelector('.menu-grid') : null;
+        if (grid) filterGrid(grid, tab.dataset.cat);
+      });
+    });
 
-      window.addEventListener('resize', render, { passive: true });
+    function filterGrid(grid, cat) {
+      if (!grid) return;
+      const platos = grid.querySelectorAll('.plato');
+      const titles = grid.querySelectorAll('.menu-section-title');
 
-      function goTo(i) {
-        idx = Math.max(0, Math.min(i, visible.length - 1));
-        render();
-      }
-
-      prevBtn.addEventListener('click', () => goTo(idx - 1));
-      nextBtn.addEventListener('click', () => goTo(idx + 1));
-
-      document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft')  goTo(idx - 1);
-        if (e.key === 'ArrowRight') goTo(idx + 1);
+      platos.forEach(p => {
+        const show = cat === 'todo' || p.dataset.cat === cat;
+        p.style.transition = 'opacity 0.25s, transform 0.25s';
+        if (show) {
+          p.style.display = '';
+          requestAnimationFrame(() => { p.style.opacity = '1'; p.style.transform = ''; });
+        } else {
+          p.style.opacity = '0';
+          p.style.transform = 'translateY(8px)';
+          setTimeout(() => { if (p.style.opacity === '0') p.style.display = 'none'; }, 250);
+        }
       });
 
-      let tx0 = 0;
-      track.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
-      track.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - tx0;
-        if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
+      // Ocultar títulos de sección si no tienen platos visibles en esa categoría
+      titles.forEach(title => {
+        if (cat === 'todo') {
+          title.style.display = '';
+        } else {
+          title.style.display = (title.dataset.section === cat) ? '' : 'none';
+        }
       });
-
-      track.addEventListener('click', e => {
-        const card = e.target.closest('.c-card');
-        if (!card) return;
-        const i = visible.indexOf(card);
-        if (i !== -1 && i !== idx) goTo(i);
-      });
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          const cat = tab.dataset.cat;
-          allCards.forEach(c => { c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none'; });
-          visible = allCards.filter(c => c.style.display !== 'none');
-          idx = 0;
-          buildDots();
-          render();
-        });
-      });
-
-      buildDots();
-      render();
-    })();
+    }
   </script>
 </body>
 </html>
