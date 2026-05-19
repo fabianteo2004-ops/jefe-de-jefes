@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jefe de Jefes — Cocina Mexicana en Madrid</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --verde:   #006847;
+      --rojo:    #CE1126;
+      --blanco:  #FFFFFF;
+      --verde-oscuro: #004d34;
+      --rojo-oscuro:  #9e0d1c;
+      --gris-oscuro:  #111111;
+      --gris-medio:   #1e1e1e;
+      --texto:        #f5f5f5;
+    }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--gris-oscuro);
+      color: var(--texto);
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5vw;
+      height: 70px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--rojo);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--blanco);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--verde); }
+    .nav-logo em { color: var(--rojo); font-style: normal; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--rojo); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('./assets/hero-bg.jpg') center/cover fixed;
+      filter: brightness(0.35);
+    }
+    .hero-stripe-top {
+      position: absolute;
+      top: 70px; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
+    }
+    .hero-stripe-bot {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
+    }
+    .hero-content { position: relative; z-index: 2; padding: 0 1rem; }
+    .hero-tagline {
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--verde);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      color: var(--blanco);
+      text-shadow: 0 4px 30px rgba(0,0,0,0.7);
+    }
+    .hero-title .accent { color: var(--rojo); }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 1px;
+    }
+    .hero-badges {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .badge {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .badge-verde { background: var(--verde); color: white; }
+    .badge-rojo  { background: var(--rojo);  color: white; }
+    .badge-white { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: white; }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+    .btn-primary { background: var(--rojo); color: white; }
+    .btn-secondary { background: var(--verde); color: white; }
+    .btn-outline { background: transparent; color: white; border: 2px solid white; }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.6;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 2px;
+      height: 40px;
+      background: var(--blanco);
+      animation: scrollLine 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ===== REVEAL ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 100px 5vw; overflow-x: hidden; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .section-label.verde { color: var(--verde); }
+    .section-label.rojo  { color: var(--rojo);  }
+    h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .divider {
+      width: 60px; height: 4px;
+      background: var(--rojo);
+      margin: 1.5rem 0 2rem;
+      border-radius: 2px;
+    }
+    .divider.verde { background: var(--verde); }
+
+    /* ===== BANDERA DECORATIVA ===== */
+    .flag-bar {
+      height: 8px;
+      background: linear-gradient(to right, var(--verde) 33.3%, var(--blanco) 33.3%, var(--blanco) 66.6%, var(--rojo) 66.6%);
+    }
+
+    /* ===== SOBRE NOSOTROS ===== */
+    #sobre {
+      position: relative;
+      background: #080808;
+    }
+    #sobre::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
+      pointer-events: none;
+    }
+    #sobre .sobre-grid { position: relative; z-index: 1; }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .sobre-img-wrap {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .sobre-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .sobre-img-wrap:hover img { transform: scale(1.05); }
+    .sobre-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 3px solid var(--verde);
+      border-radius: 8px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .terraza-badge {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--rojo);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .sobre-text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 1.5rem;
+    }
+    .features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .features-list li::before {
+      content: '';
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--verde);
+      flex-shrink: 0;
+    }
+
+    /* ===== PLATOS DESTACADOS ===== */
+    #destacados {
+      position: relative;
+      background: #080808;
+    }
+    #destacados::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
+      pointer-events: none;
+    }
+    #destacados .dest-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+    .dest-header { text-align: center; margin-bottom: 3rem; }
+    .dest-banner {
+      position: relative; width: 100%; height: 40vh; min-height: 260px;
+      border-radius: 16px; overflow: hidden; margin-bottom: 3rem;
+    }
+    .dest-banner img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55); transition: transform 0.6s; }
+    .dest-banner:hover img { transform: scale(1.03); }
+    .dest-banner-text {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      padding: 1rem;
+    }
+    .dest-banner-text h3 { font-size: clamp(1.5rem,4vw,2.8rem); font-weight: 900; text-transform: uppercase; letter-spacing: -1px; }
+    .dest-banner-text p { font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-top: 0.5rem; }
+    .dest-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .dest-card {
+      border-radius: 16px; overflow: hidden;
+      background: #161616;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: transform 0.35s, box-shadow 0.35s;
+    }
+    .dest-card:hover { transform: translateY(-6px); box-shadow: 0 22px 55px rgba(0,0,0,0.55); }
+    .dest-card-img-wrap { overflow: hidden; height: 240px; }
+    .dest-card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .dest-card:hover .dest-card-img { transform: scale(1.05); }
+    .dest-card-body { padding: 1.5rem; }
+    .dest-card-cat { font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; color: var(--verde); margin-bottom: 0.4rem; }
+    .dest-card-name { font-size: 1.25rem; font-weight: 900; text-transform: uppercase; line-height: 1.15; }
+    .dest-card-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-top: 0.6rem; }
+    .dest-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1.2rem; }
+    .dest-card-price { font-size: 1.4rem; font-weight: 900; color: var(--rojo); }
+    .dest-card-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(206,17,38,0.18); color: var(--rojo); border: 1px solid rgba(206,17,38,0.35); }
+    .dest-cta { text-align: center; margin-top: 3rem; }
+
+    /* ===== CARTA CARRUSEL ===== */
+    #carta {
+      position: relative;
+      background: #080808;
+      overflow: hidden;
+      padding: 100px 0;
+    }
+    #carta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
+      pointer-events: none;
+    }
+    .menu-header { text-align: center; margin-bottom: 2.5rem; position: relative; z-index: 2; padding: 0 5vw; }
+    .menu-tabs {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      position: relative;
+      z-index: 2;
+      padding: 0 5vw;
+    }
+    .menu-tab {
+      padding: 0.45rem 1.1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: inherit;
+    }
+    .menu-tab:hover { color: white; border-color: rgba(255,255,255,0.45); }
+    .menu-tab.active { background: var(--rojo); border-color: var(--rojo); color: white; }
+    .carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0 1rem;
+      z-index: 2;
+    }
+    .carousel-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .carousel-btn:hover { background: var(--rojo); border-color: var(--rojo); transform: scale(1.08); }
+    .carousel-viewport {
+      width: 100%;
+      max-width: 980px;
+      height: 490px;
+      position: relative;
+      overflow: visible;
+    }
+    .carousel-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .c-card {
+      position: absolute;
+      width: 285px;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  opacity 0.5s ease,
+                  box-shadow 0.5s ease;
+      will-change: transform, opacity;
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .c-card.active { box-shadow: 0 28px 65px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.1); cursor: default; }
+    .c-card-img { width: 100%; height: 210px; object-fit: cover; display: block; }
+    .c-card-grad {
+      width: 100%; height: 210px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4.5rem;
+    }
+    .c-card-body { background: #181818; padding: 1.4rem; }
+    .c-card-cat {
+      font-size: 0.67rem; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 0.4rem; color: var(--verde);
+    }
+    .c-card-name { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; line-height: 1.2; }
+    .c-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.48); line-height: 1.6; margin-top: 0.5rem; }
+    .c-card-price { margin-top: 1rem; font-size: 1.35rem; font-weight: 900; color: var(--rojo); }
+    .carousel-dots {
+      display: flex; gap: 0.5rem; justify-content: center;
+      margin-top: 2.5rem; position: relative; z-index: 2;
+    }
+    .c-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.22); cursor: pointer;
+      transition: all 0.3s; border: none; padding: 0;
+    }
+    .c-dot.active { background: var(--rojo); width: 24px; border-radius: 4px; }
+    .menu-note {
+      text-align: center; margin-top: 3rem;
+      color: rgba(255,255,255,0.3); font-size: 0.85rem;
+      position: relative; z-index: 2;
+    }
+    .menu-note strong { color: var(--verde); }
+
+    /* ===== PARALLAX BANNER ===== */
+    .parallax-banner {
+      position: relative;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .parallax-bg {
+      position: absolute;
+      inset: 0;
+      background: url('./assets/parallax-bg.jpg') center/cover fixed;
+    }
+    .parallax-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .parallax-content { z-index: 2; }
+    .parallax-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .parallax-content h2 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: white;
+    }
+    .parallax-content h2 span { color: var(--verde); }
+    .parallax-content p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ===== TERRAZA ===== */
+    #terraza {
+      position: relative;
+      background: url('./assets/parallax-bg.jpg') center/cover fixed;
+    }
+    #terraza::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      pointer-events: none;
+    }
+    #terraza .terraza-grid { position: relative; z-index: 1; }
+    .terraza-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .terraza-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .terraza-imgs .img-wrap {
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+    .terraza-imgs .img-wrap.tall {
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+    .terraza-imgs img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .terraza-imgs .img-wrap:hover img { transform: scale(1.07); }
+    .terraza-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .terraza-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1rem;
+    }
+    .terraza-feats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .terraza-feat {
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-left: 3px solid var(--verde);
+      padding: 1rem;
+      border-radius: 6px;
+    }
+    .terraza-feat h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .terraza-feat p  { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin: 0; }
+
+    /* ===== HORARIOS ===== */
+    #horarios {
+      position: relative;
+      background: #080808;
+    }
+    #horarios::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
+      pointer-events: none;
+    }
+    #horarios .horarios-wrap { position: relative; z-index: 1; }
+    .horarios-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .horarios-header { text-align: center; margin-bottom: 3rem; }
+    .horarios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .horario-card {
+      background: rgba(0,0,0,0.25);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.3s;
+    }
+    .horario-card:hover { background: rgba(0,0,0,0.4); }
+    .horario-card.cerrado { opacity: 0.45; }
+    .horario-dia {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.8rem;
+    }
+    .horario-turno {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.4rem;
+    }
+    .horario-turno::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+    }
+    .horario-card.cerrado .horario-turno::before { background: #ef4444; }
+    .cerrado-txt { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+
+    /* ===== CONTACTO ===== */
+    #contacto {
+      position: relative;
+      background: #080808;
+    }
+    #contacto::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
+      pointer-events: none;
+    }
+    #contacto .contacto-grid { position: relative; z-index: 1; }
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .contacto-info { display: flex; flex-direction: column; gap: 2rem; }
+    .contacto-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .contacto-icon {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .ci-verde { background: rgba(0,104,71,0.3); border: 1px solid var(--verde); }
+    .ci-rojo  { background: rgba(206,17,38,0.3); border: 1px solid var(--rojo);  }
+    .contacto-item h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.3rem; }
+    .contacto-item p, .contacto-item a {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      line-height: 1.5;
+    }
+    .contacto-item a:hover { color: var(--verde); }
+    .contacto-social { margin-top: 0.5rem; }
+    .ig-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      color: white;
+      padding: 0.65rem 1.3rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .ig-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    .map-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.07);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      height: 380px;
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--gris-medio);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+    }
+    .map-placeholder .map-icon { font-size: 2.5rem; }
+    .map-placeholder a {
+      color: var(--verde);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* ===== CARTA OVERLAY ===== */
+    .carta-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1500;
+      background: #080808;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .carta-overlay.open { transform: translateY(0); }
+    .carta-overlay-header {
+      position: sticky;
+      top: 0; z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 70px;
+      background: rgba(0,0,0,0.97);
+      border-bottom: 2px solid var(--rojo);
+      backdrop-filter: blur(10px);
+    }
+    .carta-overlay-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .carta-close {
+      background: none;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: white;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .carta-close:hover { background: var(--rojo); border-color: var(--rojo); }
+    .carta-overlay-body {
+      position: relative;
+      background: #080808;
+      padding-bottom: 60px;
+    }
+    .carta-overlay-body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.15) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .carta-overlay-body > * { position: relative; z-index: 1; }
+
+    /* ===== RESEÑAS ===== */
+    #resenas {
+      position: relative;
+      background: #080808;
+    }
+    #resenas::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 90% at 10% 50%, rgba(0,104,71,0.2) 0%, transparent 65%),
+        radial-gradient(ellipse 65% 90% at 90% 50%, rgba(206,17,38,0.2) 0%, transparent 65%),
+        repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,0.013) 28px, rgba(255,255,255,0.013) 29px);
+      pointer-events: none;
+    }
+    #resenas .resenas-inner { position: relative; z-index: 1; }
+    .resenas-header { text-align: center; margin-bottom: 3rem; }
+    .resenas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .resena-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .resena-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-4px); }
+    .resena-stars { color: #fbbf24; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .resena-texto {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+    .resena-autor {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .resena-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .resena-nombre { font-size: 0.85rem; font-weight: 700; }
+    .resena-fecha { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 0.1rem; }
+    .google-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.8rem;
+    }
+    .google-badge strong { color: rgba(255,255,255,0.6); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 3rem 5vw;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo span { color: var(--verde); }
+    .footer-logo em { color: var(--rojo); font-style: normal; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-top: 0.5rem; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin: 1rem 0; }
+    .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-links a:hover { color: var(--verde); }
+
+    /* ===== NAV HAMBURGER ===== */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .nav-burger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.98);
+      z-index: 998;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
+    .nav-mobile.open {
+      display: flex;
+      animation: menuFadeIn 0.25s ease;
+    }
+    @keyframes menuFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .nav-mobile a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      transition: color 0.2s;
+    }
+    .nav-mobile a:active { color: var(--rojo); }
+
+    /* ===== RESPONSIVE 768px ===== */
+    @media (max-width: 768px) {
+      .terraza-feat { background: rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.15); }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+
+      section { padding: 70px 6vw; }
+      #carta { padding: 70px 0; }
+      .dest-grid { grid-template-columns: 1fr; }
+      .dest-card-img-wrap { height: 200px; }
+
+      .hero-bg { background-attachment: scroll; }
+      .hero-stripe-top, .hero-stripe-bot { display: none; }
+
+      .sobre-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .carousel-viewport { height: 440px; }
+      .c-card { width: 76vw; max-width: 300px; }
+      .carousel-btn { width: 38px; height: 38px; font-size: 1rem; }
+      .carousel-wrap { gap: 0.4rem; padding: 0 0.4rem; }
+
+      .parallax-bg { background-attachment: scroll; background-size: cover; }
+      .parallax-banner { height: 38vh; min-height: 200px; }
+      #terraza { background-attachment: scroll; background-size: cover; }
+      .terraza-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .terraza-imgs { grid-template-columns: 1fr 1fr; }
+      .terraza-imgs .img-wrap.tall { grid-row: span 1; aspect-ratio: 1; }
+      .terraza-feats { grid-template-columns: 1fr; }
+
+      .horarios-grid { grid-template-columns: 1fr 1fr; }
+
+      .contacto-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .map-wrap { height: 260px; }
+
+      .footer-links { flex-wrap: wrap; gap: 0.8rem; }
+    }
+
+    /* ===== RESPONSIVE 480px ===== */
+    @media (max-width: 480px) {
+      .hero-title { letter-spacing: -1px; }
+      .hero-badges { gap: 0.5rem; }
+      .badge { font-size: 0.68rem; padding: 0.4rem 0.8rem; }
+      .hero-cta { gap: 0.6rem; }
+      .btn { padding: 0.7rem 1.1rem; font-size: 0.78rem; }
+      .menu-tabs { gap: 0.3rem; padding: 0 3vw; }
+      .menu-tab { font-size: 0.68rem; padding: 0.38rem 0.7rem; }
+      .horarios-grid { grid-template-columns: 1fr; }
+      .terraza-imgs { grid-template-columns: 1fr; }
+      .terraza-imgs .img-wrap { aspect-ratio: 16/9; }
+      .terraza-imgs .img-wrap.tall { aspect-ratio: 16/9; }
+      .sobre-text p { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo"><span>Jefe</span> <em>de Jefes</em></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Nosotros</a></li>
+      <li><a href="#destacados">Destacados</a></li>
+      <li><a href="#carta">Menú</a></li>
+      <li><a href="#terraza">Terraza</a></li>
+      <li><a href="#horarios">Horarios</a></li>
+      <li><a href="#resenas">Reseñas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#sobre">Nosotros</a>
+    <a href="#destacados">Destacados</a>
+    <a href="#carta">Menú</a>
+    <a href="#terraza">Terraza</a>
+    <a href="#horarios">Horarios</a>
+    <a href="#resenas">Reseñas</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-stripe-top"></div>
+    <div class="hero-stripe-bot"></div>
+    <div class="hero-content">
+      <p class="hero-tagline reveal">&#127839; Auténtica Cocina Mexicana en Madrid</p>
+      <h1 class="hero-title reveal delay-1">Jefe<br/><span class="accent">de Jefes</span></h1>
+      <p class="hero-sub reveal delay-2">San Blas-Canillejas · Madrid</p>
+      <div class="hero-badges reveal delay-3">
+        <span class="badge badge-verde">Tacos</span>
+        <span class="badge badge-rojo">Burritos</span>
+        <span class="badge badge-white">&#9728;&#65039; Terraza</span>
+        <span class="badge badge-verde">8€ — 20€</span>
+      </div>
+      <div class="hero-cta reveal delay-4">
+        <a href="#menu" class="btn btn-primary">Ver Menú</a>
+        <a href="#contacto" class="btn btn-secondary">Reservar</a>
+        <a href="https://www.instagram.com/jefedejefesmadrid" target="_blank" class="btn btn-outline">Instagram</a>
+      </div>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section id="sobre">
+    <div class="sobre-grid">
+      <div class="reveal-left">
+        <div class="sobre-img-wrap">
+          <img src="./assets/sobre-ig.jpg" alt="Jefe de Jefes — Cocina mexicana Madrid" loading="lazy" />
+          <span class="terraza-badge">&#9728;&#65039; Con Terraza</span>
+        </div>
+      </div>
+      <div class="sobre-text reveal-right">
+        <span class="section-label verde">Quiénes somos</span>
+        <h2>Sabor<br/>auténtico<br/>de México</h2>
+        <div class="divider"></div>
+        <p>En <strong>Jefe de Jefes</strong> traemos los sabores más auténticos de México al corazón de Madrid. Cada plato está preparado con ingredientes frescos y recetas tradicionales que te llevarán directamente a las calles de México.</p>
+        <p>Situados en San Blas-Canillejas, somos el punto de encuentro perfecto para los amantes de la auténtica cocina mexicana.</p>
+        <ul class="features-list">
+          <li>Ingredientes frescos cada día</li>
+          <li>Recetas tradicionales mexicanas</li>
+          <li>Amplia terraza exterior</li>
+          <li>Ambiente familiar y acogedor</li>
+          <li>Abierto de martes a domingo</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PLATOS DESTACADOS -->
+  <section id="destacados">
+    <div class="dest-inner">
+      <div class="dest-header">
+        <span class="section-label rojo reveal">Especialidades</span>
+        <h2 class="reveal delay-1">Platos<br/>Destacados</h2>
+        <div class="divider reveal delay-2" style="margin:1.5rem auto 0;"></div>
+      </div>
+      <div class="dest-banner reveal">
+        <img src="./assets/hero-ig.jpg" alt="Platos Jefe de Jefes" loading="lazy"/>
+        <div class="dest-banner-text">
+          <h3>Sabor que enamora</h3>
+          <p>Recetas auténticas · Ingredientes frescos · Pasión mexicana</p>
+        </div>
+      </div>
+      <div class="dest-grid">
+        <div class="dest-card reveal delay-1">
+          <div class="dest-card-img-wrap">
+            <img class="dest-card-img" src="./assets/costra-ig.jpg" alt="Costra Marrano"/>
+          </div>
+          <div class="dest-card-body">
+            <p class="dest-card-cat">Especialidad · Estrella</p>
+            <h3 class="dest-card-name">Costra Marrano</h3>
+            <p class="dest-card-desc">Tostadas crujientes con cochino confitado, guacamole, cebolla encurtida, cilantro y una costra de queso dorado. El taco ganador de la Ruta San Blas 2025.</p>
+            <div class="dest-card-footer">
+              <span class="dest-card-price">desde 13€</span>
+              <span class="dest-card-badge">🏆 Ruta San Blas</span>
+            </div>
+          </div>
+        </div>
+        <div class="dest-card reveal delay-2">
+          <div class="dest-card-img-wrap">
+            <img class="dest-card-img" src="./assets/terraza2-ig.jpg" alt="Quesabirrias"/>
+          </div>
+          <div class="dest-card-body">
+            <p class="dest-card-cat">Especialidad</p>
+            <h3 class="dest-card-name">Quesabirrias</h3>
+            <p class="dest-card-desc">Tortillas crujientes rellenas de birria y queso fundido, bañadas en consomé de guajillo. Irresistibles.</p>
+            <div class="dest-card-footer">
+              <span class="dest-card-price">14€</span>
+              <span class="dest-card-badge">🔥 Tendencia</span>
+            </div>
+          </div>
+        </div>
+        <div class="dest-card reveal delay-3">
+          <div class="dest-card-img-wrap">
+            <img class="dest-card-img" src="./assets/queso-fundido-ig.jpg" alt="Queso Fundido con Secreto"/>
+          </div>
+          <div class="dest-card-body">
+            <p class="dest-card-cat">Para compartir</p>
+            <h3 class="dest-card-name">Queso Fundido con Secreto</h3>
+            <p class="dest-card-desc">Sartén de queso Oaxaca fundido con secreto ibérico, chorizo y pimientos. Se sirve con tortillas de trigo recién hechas para mojar.</p>
+            <div class="dest-card-footer">
+              <span class="dest-card-price">desde 12€</span>
+              <span class="dest-card-badge">🧀 Para compartir</span>
+            </div>
+          </div>
+        </div>
+        <div class="dest-card reveal delay-4">
+          <div class="dest-card-img-wrap">
+            <img class="dest-card-img" src="./assets/terraza3-ig.jpg" alt="Chilaquiles"/>
+          </div>
+          <div class="dest-card-body">
+            <p class="dest-card-cat">Brunch · Domingo</p>
+            <h3 class="dest-card-name">Chilaquiles</h3>
+            <p class="dest-card-desc">Totopos en salsa roja con chorizo, crema, queso fresco y cebolla morada. El desayuno mexicano de los domingos.</p>
+            <div class="dest-card-footer">
+              <span class="dest-card-price">12€</span>
+              <span class="dest-card-badge">☀️ Domingo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dest-cta reveal">
+        <a href="#carta" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">Ver carta completa →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTA OVERLAY (fuera del flujo de scroll) -->
+  <div class="carta-overlay" id="cartaOverlay">
+    <div class="carta-overlay-header">
+      <span class="carta-overlay-title"><span style="color:var(--verde)">Jefe</span> <span style="color:var(--rojo)">de Jefes</span> · Carta</span>
+      <button class="carta-close" id="cartaClose" aria-label="Cerrar carta">✕</button>
+    </div>
+    <div class="carta-overlay-body">
+    <div class="menu-header" style="margin-top:2rem;">
+      <span class="section-label rojo">Nuestra carta</span>
+      <h2>Carta<br/>Completa</h2>
+      <div class="divider" style="margin: 1.5rem auto 0;"></div>
+    </div>
+
+    <div class="menu-tabs" id="menuTabs">
+      <button class="menu-tab active" data-cat="all">Todo</button>
+      <button class="menu-tab" data-cat="entrante">Entrantes</button>
+      <button class="menu-tab" data-cat="tacos">Tacos</button>
+      <button class="menu-tab" data-cat="burritos">Burritos</button>
+      <button class="menu-tab" data-cat="especialidad">Especialidades</button>
+      <button class="menu-tab" data-cat="bebidas">Bebidas</button>
+    </div>
+
+    <div class="carousel-wrap">
+      <button class="carousel-btn" id="prevBtn">&#8592;</button>
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="c-card" data-cat="entrante">
+            <img class="c-card-img" src="./assets/guacamole.jpg" alt="Guacamole" loading="lazy"/>
+            <div class="c-card-body">
+              <p class="c-card-cat">Entrante</p>
+              <h3 class="c-card-name">Guacamole con Totopos</h3>
+              <p class="c-card-desc">Aguacate machacado al momento con tomate, cebolla, cilantro y chile jalapeño fresco.</p>
+              <p class="c-card-price">8€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="entrante">
+            <div class="c-card-grad" style="background: linear-gradient(135deg,#b45309,#78350f);">🧀</div>
+            <div class="c-card-body">
+              <p class="c-card-cat">Entrante</p>
+              <h3 class="c-card-name">Nachos Especiales</h3>
+              <p class="c-card-desc">Totopos crujientes con queso fundido, jalapeños, crema agria y pico de gallo casero.</p>
+              <p class="c-card-price">9€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="entrante">
+            <img class="c-card-img" src="./assets/plato 1.jpg" alt="Quesadilla" loading="lazy"/>
+            <div class="c-card-body">
+              <p class="c-card-cat">Entrante</p>
+              <h3 class="c-card-name">Quesadilla de Pollo</h3>
+              <p class="c-card-desc">Tortilla de harina con pollo asado, queso Oaxaca fundido y guacamole de la casa.</p>
+              <p class="c-card-price">10€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="tacos">
+            <div class="c-card-grad" style="background: linear-gradient(135deg,#991b1b,#6b1717);">🌮</div>
+            <div class="c-card-body">
+              <p class="c-card-cat">Tacos</p>
+              <h3 class="c-card-name">Tacos al Pastor</h3>
+              <p class="c-card-desc">3 tacos de cerdo marinado en achiote con piña fresca, cebolla morada y cilantro.</p>
+              <p class="c-card-price">11€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="tacos">
+            <img class="c-card-img" src="./assets/machete birria.jpg" alt="Tacos de Birria" loading="lazy"/>
+            <div class="c-card-body">
+              <p class="c-card-cat">Tacos · Estrella</p>
+              <h3 class="c-card-name">Tacos de Birria</h3>
+              <p class="c-card-desc">3 tacos con carne deshebrada, cebolla, cilantro y salsa roja. Se sirven con consomé.</p>
+              <p class="c-card-price">13€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="tacos">
+            <div class="c-card-grad" style="background: linear-gradient(135deg,#c2410c,#7c2d12);">🌶️</div>
+            <div class="c-card-body">
+              <p class="c-card-cat">Tacos</p>
+              <h3 class="c-card-name">Tacos de Cochinita</h3>
+              <p class="c-card-desc">3 tacos de cochinita pibil con achiote y cebolla morada encurtida en naranja agria.</p>
+              <p class="c-card-price">12€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="burritos">
+            <div class="c-card-grad" style="background: linear-gradient(135deg,#166534,#14532d);">🌯</div>
+            <div class="c-card-body">
+              <p class="c-card-cat">Burritos</p>
+              <h3 class="c-card-name">Burrito de Pollo</h3>
+              <p class="c-card-desc">Tortilla XL con pollo a la plancha, arroz, frijoles, queso, guacamole y pico de gallo.</p>
+              <p class="c-card-price">12€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="burritos">
+            <div class="c-card-grad" style="background: linear-gradient(135deg,#7c2d12,#5a1f0a);">🥩</div>
+            <div class="c-card-body">
+              <p class="c-card-cat">Burritos</p>
+              <h3 class="c-card-name">Burrito de Carne</h3>
+              <p class="c-card-desc">Tortilla XL con carne deshebrada, arroz, frijoles refritos, queso cheddar y jalapeños.</p>
+              <p class="c-card-price">14€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="especialidad">
+            <img class="c-card-img" src="./assets/machete chicharron.jpg" alt="Machete Chicharrón" loading="lazy"/>
+            <div class="c-card-body">
+              <p class="c-card-cat">Especialidad</p>
+              <h3 class="c-card-name">Machete Chicharrón</h3>
+              <p class="c-card-desc">Tortilla gigante con chicharrón en salsa verde, crema y queso rallado. Imprescindible.</p>
+              <p class="c-card-price">14€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="especialidad">
+            <img class="c-card-img" src="./assets/enchilada.jpg" alt="Enchiladas Rojas" loading="lazy"/>
+            <div class="c-card-body">
+              <p class="c-card-cat">Clásicos</p>
+              <h3 class="c-card-name">Enchiladas Rojas</h3>
+              <p class="c-card-desc">Tortillas rellenas de pollo bañadas en salsa de chile guajillo con queso y crema agria.</p>
+              <p class="c-card-price">12€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="bebidas">
+            <div class="c-card-grad" style="background: linear-gradient(135deg,#4d7c0f,#2d4a08);">🍹</div>
+            <div class="c-card-body">
+              <p class="c-card-cat">Bebidas</p>
+              <h3 class="c-card-name">Margarita Clásica</h3>
+              <p class="c-card-desc">Tequila blanco, triple sec y zumo de lima natural. Servida con sal en el borde.</p>
+              <p class="c-card-price">9€</p>
+            </div>
+          </div>
+
+          <div class="c-card" data-cat="bebidas">
+            <div class="c-card-grad" style="background: linear-gradient(135deg,#1e3a5f,#0d2040);">🍺</div>
+            <div class="c-card-body">
+              <p class="c-card-cat">Bebidas</p>
+              <h3 class="c-card-name">Michelada</h3>
+              <p class="c-card-desc">Cerveza con limón, salsa Worcestershire, Maggi y chile en polvo. Muy refrescante.</p>
+              <p class="c-card-price">8€</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="carousel-btn" id="nextBtn">&#8594;</button>
+    </div>
+
+    <div class="carousel-dots" id="carouselDots"></div>
+    <p class="menu-note">Precios entre <strong>8€ y 20€</strong> · IVA incluido · Carta sujeta a disponibilidad</p>
+    </div><!-- /carta-overlay-body -->
+  </div><!-- /carta-overlay -->
+
+  <!-- PARALLAX BANNER -->
+  <div class="parallax-banner">
+    <div class="parallax-bg" id="parallaxBg"></div>
+    <div class="parallax-content reveal">
+      <h2>Tacos &amp; <span>Burritos</span></h2>
+      <p>Nuestros platos estrella, preparados con auténtica pasión mexicana</p>
+    </div>
+  </div>
+
+  <!-- TERRAZA -->
+  <section id="terraza">
+    <div class="terraza-grid">
+      <div class="reveal-left">
+        <div class="terraza-imgs">
+          <div class="img-wrap tall">
+            <img src="./assets/terraza1-ig.jpg" alt="Terraza Jefe de Jefes" loading="lazy" />
+          </div>
+          <div class="img-wrap">
+            <img src="./assets/terraza2-ig.jpg" alt="Quesabirrias en terraza" loading="lazy" />
+          </div>
+          <div class="img-wrap">
+            <img src="./assets/terraza3-ig.jpg" alt="Chilaquiles en terraza" loading="lazy" />
+          </div>
+        </div>
+      </div>
+      <div class="terraza-text reveal-right">
+        <span class="section-label verde">Espacio exterior</span>
+        <h2>Nuestra<br/>terraza</h2>
+        <div class="divider verde"></div>
+        <p>Disfruta de la auténtica cocina mexicana al aire libre en nuestra amplia terraza. El lugar ideal para comer o cenar con familia, amigos o pareja.</p>
+        <p>Perfecta para los meses de buen tiempo en Madrid, con un ambiente único que te transporta a México.</p>
+        <div class="terraza-feats">
+          <div class="terraza-feat">
+            <h4>Comida al sol</h4>
+            <p>Almuerzo y cena con ambiente mexicano al aire libre</p>
+          </div>
+          <div class="terraza-feat">
+            <h4>Ambiente único</h4>
+            <p>Decoración y música mexicana en cada rincón</p>
+          </div>
+          <div class="terraza-feat">
+            <h4>Para todos</h4>
+            <p>Ideal para familias, parejas y grupos de amigos</p>
+          </div>
+          <div class="terraza-feat">
+            <h4>San Blas</h4>
+            <p>El rincón mexicano de Madrid, accesible y acogedor</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="flag-bar"></div>
+
+  <!-- HORARIOS -->
+  <section id="horarios">
+    <div class="horarios-wrap">
+      <div class="horarios-header">
+        <span class="section-label" style="color:rgba(255,255,255,0.6); reveal">Cuándo visitarnos</span>
+        <h2 class="reveal delay-1">Horarios</h2>
+        <div class="divider reveal delay-2" style="margin: 1.5rem auto 0; background: rgba(255,255,255,0.4);"></div>
+      </div>
+      <div class="horarios-grid">
+        <div class="horario-card reveal delay-1">
+          <p class="horario-dia">Lunes</p>
+          <div class="horario-turno">20:00 – 23:00</div>
+          <p style="font-size:0.75rem; color:rgba(255,255,255,0.4); margin-top:0.3rem;">Solo cenas</p>
+        </div>
+        <div class="horario-card reveal delay-1">
+          <p class="horario-dia">Martes</p>
+          <div class="horario-turno">13:30 – 16:30</div>
+          <div class="horario-turno">20:00 – 23:00</div>
+        </div>
+        <div class="horario-card reveal delay-2">
+          <p class="horario-dia">Miércoles</p>
+          <div class="horario-turno">13:30 – 16:30</div>
+          <div class="horario-turno">20:00 – 23:00</div>
+        </div>
+        <div class="horario-card reveal delay-2">
+          <p class="horario-dia">Jueves</p>
+          <div class="horario-turno">13:30 – 16:30</div>
+          <div class="horario-turno">20:00 – 23:00</div>
+        </div>
+        <div class="horario-card reveal delay-3">
+          <p class="horario-dia">Viernes</p>
+          <div class="horario-turno">13:30 – 17:00</div>
+          <div class="horario-turno">20:00 – 24:00</div>
+        </div>
+        <div class="horario-card reveal delay-3">
+          <p class="horario-dia">Sábado</p>
+          <div class="horario-turno">13:00 – 17:00</div>
+          <div class="horario-turno">20:00 – 24:00</div>
+        </div>
+        <div class="horario-card reveal delay-4">
+          <p class="horario-dia">Domingo</p>
+          <div class="horario-turno">11:00 – 16:30</div>
+          <div class="horario-turno">20:00 – 23:00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEÑAS -->
+  <section id="resenas">
+    <div class="resenas-inner">
+      <div class="resenas-header">
+        <span class="section-label verde reveal">Lo que dicen de nosotros</span>
+        <h2 class="reveal delay-1">Reseñas</h2>
+        <div class="divider reveal delay-2" style="margin: 1.5rem auto 0;"></div>
+      </div>
+      <div class="resenas-grid">
+
+        <div class="resena-card reveal delay-1">
+          <div class="resena-stars">★★★★★</div>
+          <p class="resena-texto">"La comida estaba increíble, de verdad nos encantaron todos los platos. Si tuviéramos que elegir dos favoritos, sin duda serían la cochinita pibil y la porquería, que de verdad estaban muy, muy buenas. Además, nos pareció súper bien de precio para todo lo que comimos. La atención fue grandiosa y el personal muy cercano y amable. El local es pequeñito pero súper acogedor. Sin duda, súper recomendado y volveré 🫶🏻"</p>
+          <div class="resena-autor">
+            <div class="resena-avatar" style="background: #006847;">K</div>
+            <div>
+              <p class="resena-nombre">Karla Moreno</p>
+              <p class="resena-fecha">Reseña en Google Maps</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="resena-card reveal delay-2">
+          <div class="resena-stars">★★★★★</div>
+          <p class="resena-texto">"El sitio es pequeño pero acogedor. La camarera excelente, nos aconsejó genial para elegir la comida y el cocinero genial. Todo muy bueno y casero y precio asequible. Sin duda lo recomiendo."</p>
+          <div class="resena-autor">
+            <div class="resena-avatar" style="background: #CE1126;">E</div>
+            <div>
+              <p class="resena-nombre">Esther Rodriguez</p>
+              <p class="resena-fecha">Reseña en Google Maps</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="resena-card reveal delay-3">
+          <div class="resena-stars">★★★★★</div>
+          <p class="resena-texto">"Se pusieron en contacto con nosotros muy amablemente y nos brindaron una solución. Pudimos disfrutar de una experiencia increíble con distintos platos en un menú especial y quedamos más que satisfechos. Lo recomendamos y volveremos."</p>
+          <div class="resena-autor">
+            <div class="resena-avatar" style="background: #7c3aed;">R</div>
+            <div>
+              <p class="resena-nombre">Rebeca Rodriguez</p>
+              <p class="resena-fecha">Reseña en Google Maps</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="resena-card reveal delay-4">
+          <div class="resena-stars">★★★★★</div>
+          <p class="resena-texto">"La comida es espectacular, a todo el que conozco le traigo para que pruebe estos maravillosos tacos. El de barbacoa con consomé, de momento mi favorito. Los totopos están riquísimos y bien picantosillos. Y de postre... una pedazo de tarta tres leches riquísima. Hay que destacar la atención del personal, muy amables y atentos, ¡son unas personas de 10!"</p>
+          <div class="resena-autor">
+            <div class="resena-avatar" style="background: #b45309;">C</div>
+            <div>
+              <p class="resena-nombre">Carlos Carrasco</p>
+              <p class="resena-fecha">Reseña en Google Maps</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="resena-card reveal delay-1">
+          <div class="resena-stars">★★★★★</div>
+          <p class="resena-texto">"Es increíble la comida. Si has ido a cualquier mexicano, esto no tiene ni punto de comparación. Los niños han salido encantados también. Dicen que está todo riquísimo. Y doy fe de ello. Merece la pena 100%."</p>
+          <div class="resena-autor">
+            <div class="resena-avatar" style="background: #0369a1;">R</div>
+            <div>
+              <p class="resena-nombre">Ruben Criado Perez</p>
+              <p class="resena-fecha">Reseña en Google Maps</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="resena-card reveal delay-2">
+          <div class="resena-stars">★★★★★</div>
+          <p class="resena-texto">"¡La comida estuvo deliciosa! Pedimos tacos al pastor, quesadillas de birria, unos totopos y luego el plato estrella: una 'porquería'. Sabor 10, pero lo mejor sin duda el trato que nos han dado, son muy familiares."</p>
+          <div class="resena-autor">
+            <div class="resena-avatar" style="background: #065f46;">J</div>
+            <div>
+              <p class="resena-nombre">Julian Robles</p>
+              <p class="resena-fecha">Reseña en Google Maps</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="google-badge reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Reseñas de <strong>Google Maps</strong> · Valoración <strong>4,7 ★</strong> · <strong>590 reseñas</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="contacto-grid">
+      <div class="reveal-left">
+        <span class="section-label rojo">Encuéntranos</span>
+        <h2>Visítanos</h2>
+        <div class="divider"></div>
+        <div class="contacto-info">
+          <div class="contacto-item">
+            <div class="contacto-icon ci-verde">📍</div>
+            <div>
+              <h4>Dirección</h4>
+              <p>Av. de Niza, 51<br/>San Blas-Canillejas, 28022 Madrid</p>
+            </div>
+          </div>
+          <div class="contacto-item">
+            <div class="contacto-icon ci-rojo">📞</div>
+            <div>
+              <h4>Teléfono / Reservas</h4>
+              <a href="tel:+34643114833">643 114 833</a>
+            </div>
+          </div>
+          <div class="contacto-item">
+            <div class="contacto-icon ci-verde">💬</div>
+            <div>
+              <h4>WhatsApp</h4>
+              <a href="https://wa.me/34643114833" target="_blank">Escríbenos por WhatsApp</a>
+            </div>
+          </div>
+          <div class="contacto-item">
+            <div class="contacto-icon ci-rojo">📸</div>
+            <div>
+              <h4>Instagram</h4>
+              <div class="contacto-social">
+                <a href="https://www.instagram.com/jefedejefesmadrid" target="_blank" class="ig-btn">
+                  📸 @jefedejefesmadrid
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="map-wrap">
+          <div class="map-placeholder">
+            <span class="map-icon">🗺️</span>
+            <p>Av. de Niza, 51 · San Blas-Canillejas · 28022 Madrid</p>
+            <a href="https://maps.google.com/?q=Av.+de+Niza+51+San+Blas+Madrid" target="_blank">Ver en Google Maps →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo"><span>Jefe</span> <em>de Jefes</em></div>
+    <div class="footer-links">
+      <a href="#sobre">Nosotros</a>
+      <a href="#menu">Menú</a>
+      <a href="#terraza">Terraza</a>
+      <a href="#horarios">Horarios</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://www.instagram.com/jefedejefesmadrid" target="_blank">Instagram</a>
+    </div>
+    <p>Av. de Niza, 51 · San Blas-Canillejas · 28022 Madrid · 643 114 833</p>
+    <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.3;">© 2025 Jefe de Jefes · Cocina Mexicana</p>
+  </footer>
+
+  <script>
+    // ===== PARALLAX HERO =====
+    const heroBg = document.getElementById('heroBg');
+    const parallaxBg = document.getElementById('parallaxBg');
+
+
+    // ===== SCROLL REVEAL =====
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // ===== CARRUSEL CARTA =====
+    (function() {
+      const track = document.getElementById('carouselTrack');
+      const dotsWrap = document.getElementById('carouselDots');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const tabs = document.querySelectorAll('.menu-tab');
+
+      let allCards = Array.from(track.querySelectorAll('.c-card'));
+      let visible = [...allCards];
+      let idx = 0;
+
+      function buildDots() {
+        dotsWrap.innerHTML = '';
+        visible.forEach((_, i) => {
+          const d = document.createElement('button');
+          d.className = 'c-dot' + (i === idx ? ' active' : '');
+          d.addEventListener('click', () => goTo(i));
+          dotsWrap.appendChild(d);
+        });
+      }
+
+      function render() {
+        const cardW = (visible[0] ? visible[0].offsetWidth : 285) + 10;
+        allCards.forEach(c => { c.style.opacity = '0'; c.style.zIndex = '0'; c.style.pointerEvents = 'none'; });
+        visible.forEach((card, i) => {
+          const off = i - idx;
+          const abs = Math.abs(off);
+          if (abs > 2) return;
+          const s = [1, 0.82, 0.65][abs];
+          const o = [1, 0.65, 0.35][abs];
+          const tx = off * cardW;
+          card.style.transform = `translateX(${tx}px) scale(${s})`;
+          card.style.opacity = o;
+          card.style.zIndex = 10 - abs;
+          card.style.pointerEvents = abs === 0 ? 'auto' : 'none';
+          card.classList.toggle('active', off === 0);
+        });
+        document.querySelectorAll('.c-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+
+      window.addEventListener('resize', render, { passive: true });
+
+      function goTo(i) {
+        idx = Math.max(0, Math.min(i, visible.length - 1));
+        render();
+      }
+
+      prevBtn.addEventListener('click', () => goTo(idx - 1));
+      nextBtn.addEventListener('click', () => goTo(idx + 1));
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') goTo(idx - 1);
+        if (e.key === 'ArrowRight') goTo(idx + 1);
+      });
+
+      let tx0 = 0;
+      track.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - tx0;
+        if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
+      });
+
+      track.addEventListener('click', e => {
+        const card = e.target.closest('.c-card');
+        if (!card) return;
+        const i = visible.indexOf(card);
+        if (i !== -1 && i !== idx) goTo(i);
+      });
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const cat = tab.dataset.cat;
+          allCards.forEach(c => { c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none'; });
+          visible = allCards.filter(c => c.style.display !== 'none');
+          idx = 0;
+          buildDots();
+          render();
+        });
+      });
+
+      buildDots();
+      render();
+    })();
+
+    // ===== CARTA OVERLAY =====
+    const cartaOverlay = document.getElementById('cartaOverlay');
+    const cartaClose   = document.getElementById('cartaClose');
+
+    function openCarta() {
+      cartaOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => render(), 50);
+    }
+    function closeCarta() {
+      cartaOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    cartaClose.addEventListener('click', closeCarta);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCarta(); });
+
+    document.querySelectorAll('a[href="#carta"]').forEach(a => {
+      a.addEventListener('click', e => { e.preventDefault(); openCarta(); });
+    });
+
+    // ===== HAMBURGER =====
+    const burger = document.getElementById('navBurger');
+    const mobileMenu = document.getElementById('navMobile');
+    let _savedScroll = 0;
+
+    function lockScroll() {
+      _savedScroll = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${_savedScroll}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+    }
+    function unlockScroll() {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, _savedScroll);
+    }
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      mobileMenu.classList.contains('open') ? lockScroll() : unlockScroll();
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        if (!a.getAttribute('href')?.includes('carta')) {
+          setTimeout(unlockScroll, 350);
+        }
+      });
+    });
+
+    // ===== NAVBAR SCROLL =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.style.background = window.scrollY > 80
+        ? 'rgba(0,0,0,0.97)'
+        : 'rgba(0,0,0,0.85)';
+    }, { passive: true });
+  </script>
+</body>
+</html>
