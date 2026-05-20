@@ -983,17 +983,17 @@
       section { padding: 70px 6vw; }
       #carta { padding: 70px 0; }
       .dest-grid { grid-template-columns: 1fr; }
-      .dest-card-img-wrap { height: 260px; background: #272727; }
-      .dest-card-img { object-fit: contain; }
-      .dest-banner { height: 200px; min-height: unset; background: #272727; }
-      .dest-banner img { object-fit: contain; }
+      .dest-card-img-wrap { height: auto; overflow: visible; }
+      .dest-card-img { width: 100%; height: auto; object-fit: unset; }
+      .dest-banner { height: auto; min-height: unset; }
+      .dest-banner img { width: 100%; height: auto; object-fit: unset; filter: brightness(0.55); }
 
       .hero-bg { background-attachment: unset; filter: brightness(0.28) saturate(1.4); }
       .hero-stripe-top, .hero-stripe-bot { display: none; }
 
       .sobre-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .sobre-img-wrap { aspect-ratio: 4/3; background: #272727; }
-      .sobre-img-wrap img { object-fit: contain; }
+      .sobre-img-wrap { height: auto; }
+      .sobre-img-wrap img { width: 100%; height: auto; object-fit: unset; }
 
       .carousel-viewport { height: 440px; }
       .c-card { width: 76vw; max-width: 300px; }
