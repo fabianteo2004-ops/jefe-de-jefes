@@ -84,35 +84,8 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: #1a1a1a;
-      overflow: hidden;
-    }
-    .hero-bg::before {
-      content: 'JEFE DE JEFES';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Anton', Impact, sans-serif;
-      font-size: clamp(5rem, 18vw, 16rem);
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: #dc3830;
-      opacity: 0.07;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .hero-bg::after {
-      content: '✦ CASA MEXICANA ✦';
-      position: absolute;
-      top: calc(50% + clamp(4rem, 12vw, 11rem));
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Segoe Script', 'Brush Script MT', cursive;
-      font-size: clamp(1rem, 3vw, 2.5rem);
-      color: #dc3830;
-      opacity: 0.07;
-      white-space: nowrap;
-      pointer-events: none;
+      background: url('./assets/frase-bg.jpg') center/cover no-repeat;
+      filter: brightness(0.12) saturate(1.4);
     }
     .hero-stripe-top {
       position: absolute;
@@ -557,40 +530,14 @@
     .parallax-bg {
       position: absolute;
       inset: 0;
-      background: #1a1a1a;
-      overflow: hidden;
-    }
-    .parallax-bg::before {
-      content: '✦ Aquí se come chingón ✦';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Segoe Script', 'Brush Script MT', cursive;
-      font-size: clamp(2rem, 6vw, 5rem);
-      color: #dc3830;
-      opacity: 0.1;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .parallax-bg::after {
-      content: 'JEFE\00B7DE\00B7JEFES';
-      position: absolute;
-      top: calc(50% + clamp(2.5rem, 5vw, 4rem));
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Anton', Impact, sans-serif;
-      font-size: clamp(1rem, 3vw, 2.5rem);
-      letter-spacing: 10px;
-      color: #f2ecd5;
-      opacity: 0.05;
-      white-space: nowrap;
-      pointer-events: none;
+      background: url('./assets/logo-bg.jpg') center/contain no-repeat fixed #1a1a1a;
+      filter: brightness(0.15) saturate(1.4);
     }
     .parallax-banner::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(26,26,26,0.6);
+      background: rgba(26,26,26,0.45);
       z-index: 1;
       pointer-events: none;
     }
@@ -614,13 +561,13 @@
     /* ===== TERRAZA ===== */
     #terraza {
       position: relative;
-      background: url('./assets/parallax-bg.jpg') center/cover fixed;
+      background: url('./assets/logo-bg.jpg') center/contain no-repeat fixed #ffffff;
     }
     #terraza::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.72);
+      background: rgba(26,26,26,0.82);
       pointer-events: none;
     }
     #terraza .terraza-grid { position: relative; z-index: 1; }
@@ -1048,9 +995,9 @@
       .carousel-btn { width: 38px; height: 38px; font-size: 1rem; }
       .carousel-wrap { gap: 0.4rem; padding: 0 0.4rem; }
 
-      .parallax-bg { background-attachment: unset; }
+      .parallax-bg { background-attachment: scroll; background-size: contain; }
       .parallax-banner { height: 38vh; min-height: 200px; }
-      #terraza { background-attachment: scroll; background-size: cover; }
+      #terraza { background-attachment: scroll; background-size: contain; }
       .terraza-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .terraza-imgs { grid-template-columns: 1fr 1fr; }
       .terraza-imgs .img-wrap.tall { grid-row: span 1; aspect-ratio: 1; }
@@ -1395,15 +1342,6 @@
     <p class="menu-note">Precios entre <strong>8€ y 20€</strong> · IVA incluido · Carta sujeta a disponibilidad</p>
     </div><!-- /carta-overlay-body -->
   -->
-
-  <!-- PARALLAX BANNER -->
-  <div class="parallax-banner">
-    <div class="parallax-bg" id="parallaxBg"></div>
-    <div class="parallax-content reveal">
-      <h2>Tacos &amp; <span>Burritos</span></h2>
-      <p>Nuestros platos estrella, preparados con auténtica pasión mexicana</p>
-    </div>
-  </div>
 
   <!-- TERRAZA -->
   <section id="terraza">
