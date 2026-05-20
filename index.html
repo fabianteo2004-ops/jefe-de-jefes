@@ -84,8 +84,35 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('./assets/hero-bg.jpg') center/cover fixed;
-      filter: brightness(0.35);
+      background: #1a1a1a;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: 'JEFE DE JEFES';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: clamp(5rem, 18vw, 16rem);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #dc3830;
+      opacity: 0.07;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .hero-bg::after {
+      content: '✦ CASA MEXICANA ✦';
+      position: absolute;
+      top: calc(50% + clamp(4rem, 12vw, 11rem));
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Segoe Script', 'Brush Script MT', cursive;
+      font-size: clamp(1rem, 3vw, 2.5rem);
+      color: #dc3830;
+      opacity: 0.07;
+      white-space: nowrap;
+      pointer-events: none;
     }
     .hero-stripe-top {
       position: absolute;
@@ -530,13 +557,40 @@
     .parallax-bg {
       position: absolute;
       inset: 0;
-      background: url('./assets/parallax-bg.jpg') center/cover fixed;
+      background: #1a1a1a;
+      overflow: hidden;
+    }
+    .parallax-bg::before {
+      content: '✦ Aquí se come chingón ✦';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Segoe Script', 'Brush Script MT', cursive;
+      font-size: clamp(2rem, 6vw, 5rem);
+      color: #dc3830;
+      opacity: 0.1;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .parallax-bg::after {
+      content: 'JEFE\00B7DE\00B7JEFES';
+      position: absolute;
+      top: calc(50% + clamp(2.5rem, 5vw, 4rem));
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: clamp(1rem, 3vw, 2.5rem);
+      letter-spacing: 10px;
+      color: #f2ecd5;
+      opacity: 0.05;
+      white-space: nowrap;
+      pointer-events: none;
     }
     .parallax-banner::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.72);
+      background: rgba(26,26,26,0.6);
       z-index: 1;
       pointer-events: none;
     }
@@ -984,7 +1038,7 @@
       .dest-grid { grid-template-columns: 1fr; }
       .dest-card-img-wrap { height: 200px; }
 
-      .hero-bg { background-attachment: scroll; }
+      .hero-bg { background-attachment: unset; }
       .hero-stripe-top, .hero-stripe-bot { display: none; }
 
       .sobre-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -994,7 +1048,7 @@
       .carousel-btn { width: 38px; height: 38px; font-size: 1rem; }
       .carousel-wrap { gap: 0.4rem; padding: 0 0.4rem; }
 
-      .parallax-bg { background-attachment: scroll; background-size: cover; }
+      .parallax-bg { background-attachment: unset; }
       .parallax-banner { height: 38vh; min-height: 200px; }
       #terraza { background-attachment: scroll; background-size: cover; }
       .terraza-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -1035,7 +1089,7 @@
     <ul class="nav-links">
       <li><a href="#sobre">Nosotros</a></li>
       <li><a href="#destacados">Destacados</a></li>
-      <li><a href="./carta/">Menú</a></li>
+      <li><a href="./carta/index.html">Menú</a></li>
       <li><a href="#terraza">Terraza</a></li>
       <li><a href="#horarios">Horarios</a></li>
       <li><a href="#resenas">Reseñas</a></li>
@@ -1048,7 +1102,7 @@
   <div class="nav-mobile" id="navMobile">
     <a href="#sobre">Nosotros</a>
     <a href="#destacados">Destacados</a>
-    <a href="./carta/">Menú</a>
+    <a href="./carta/index.html">Menú</a>
     <a href="#terraza">Terraza</a>
     <a href="#horarios">Horarios</a>
     <a href="#resenas">Reseñas</a>
@@ -1180,7 +1234,7 @@
         </div>
       </div>
       <div class="dest-cta reveal">
-        <a href="./carta/" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">Ver carta completa →</a>
+        <a href="./carta/index.html" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">Ver carta completa →</a>
       </div>
     </div>
   </section>
