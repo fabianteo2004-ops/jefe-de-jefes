@@ -260,12 +260,25 @@
       font-size: 0.82rem; color: rgba(242,236,213,0.5);
       letter-spacing: 1px;
     }
-    .domingo-header .hora {
-      display: inline-block; margin-top: 0.5rem;
-      padding: 0.3rem 1rem; border-radius: 50px;
-      background: rgba(220,56,48,0.15);
-      border: 1px solid rgba(220,56,48,0.4);
-      color: var(--rojo); font-size: 0.78rem; font-weight: 700;
+    .domingo-turno {
+      margin-bottom: 2.5rem;
+    }
+    .domingo-turno-header {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem; margin-bottom: 1rem;
+      background: var(--card);
+      border: 1px solid var(--borde); border-radius: 10px;
+      border-left: 3px solid var(--rojo);
+    }
+    .domingo-turno-icon { font-size: 1.6rem; }
+    .domingo-turno-header h3 {
+      font-size: 1.1rem; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--crema);
+      margin-bottom: 0.1rem;
+    }
+    .domingo-turno-header p {
+      font-size: 0.75rem; color: var(--rojo);
+      font-weight: 700; letter-spacing: 1px;
     }
 
     /* ===== NOTA PIE ===== */
@@ -314,8 +327,7 @@
   <!-- TABS PRINCIPALES -->
   <div class="main-tabs">
     <button class="main-tab active" data-panel="dia">Carta del día</button>
-    <button class="main-tab" data-panel="tarde">Tarde · 16–20h</button>
-    <button class="main-tab" data-panel="domingo">Domingo · 11–13h</button>
+    <button class="main-tab" data-panel="domingo">Domingo</button>
     <button class="main-tab" data-panel="bebidas">Bebidas</button>
   </div>
 
@@ -532,157 +544,174 @@
       </div>
     </div><!-- /panel-dia -->
 
-    <!-- ===== CARTA TARDE 16-20h ===== -->
-    <div class="panel" id="panel-tarde">
-      <div class="menu-grid" id="grid-tarde">
-
-        <div class="menu-section-title"><h2>Entrantes</h2></div>
-
-        <div class="plato" data-cat="entrante">
-          <span class="plato-cat">Entrante</span>
-          <h3 class="plato-nombre">Totopos Clásicos</h3>
-          <p class="plato-desc">Triángulos de maíz artesanales, salsa de frijol, salsa de guajillo, pico de gallo, jalapeños y salsa de aguacate.</p>
-          <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
-        </div>
-
-        <div class="plato" data-cat="entrante">
-          <span class="plato-cat">Entrante · Media ración</span>
-          <h3 class="plato-nombre">Totopitos Clásicos</h3>
-          <p class="plato-desc">Media ración. Añade tinga +1€ · cochinita +2€</p>
-          <div class="plato-footer"><span class="plato-precio">8,00€</span></div>
-        </div>
-
-        <div class="plato" data-cat="entrante">
-          <span class="plato-cat">Entrante</span>
-          <h3 class="plato-nombre">Guacamole</h3>
-          <p class="plato-desc">Aguacate fresco, pico de gallo y totopos artesanales.</p>
-          <div class="plato-footer"><span class="plato-precio">11,00€</span></div>
-        </div>
-
-        <div class="menu-section-title"><h2>Tacos y más</h2></div>
-
-        <div class="plato" data-cat="tacos">
-          <span class="plato-cat">Tacos · 4 uds.</span>
-          <h3 class="plato-nombre">Cochinita Pibil</h3>
-          <p class="plato-desc">Cerdo marinado en achiote y cebolla morada encurtida.</p>
-          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
-        </div>
-
-        <div class="plato" data-cat="tacos">
-          <span class="plato-cat">Tacos · 4 uds.</span>
-          <h3 class="plato-nombre">Tinga</h3>
-          <p class="plato-desc">Pollo desmechado con salsa de tomate casera y chile chipotle.</p>
-          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
-        </div>
-
-        <div class="plato" data-cat="tacos">
-          <span class="plato-cat">Tacos · 4 uds.</span>
-          <h3 class="plato-nombre">Birria</h3>
-          <p class="plato-desc">Guiso de ternera en chiles secos y especias, cilantro, cebolla y salsa de aguacate.</p>
-          <div class="plato-footer"><span class="plato-precio">10,90€</span></div>
-        </div>
-
-        <div class="plato" data-cat="tacos">
-          <span class="plato-cat">Para compartir · 8 uds.</span>
-          <h3 class="plato-nombre">Mix de 8 Tacos</h3>
-          <p class="plato-desc">Surtido de cochinita, tinga, birria y alambre de lomo.</p>
-          <div class="plato-footer"><span class="plato-precio">21,00€</span></div>
-        </div>
-
-        <div class="plato" data-cat="tacos">
-          <span class="plato-cat">Especialidad · 4 uds.</span>
-          <h3 class="plato-nombre">Cachetadas de Chorizo</h3>
-          <p class="plato-desc">Tortillas de trigo con queso planchado, chorizo asado, cebolla, cilantro y salsa de la casa.</p>
-          <div class="plato-footer"><span class="plato-precio">12,50€</span></div>
-        </div>
-
-        <div class="plato" data-cat="tacos">
-          <span class="plato-cat">Para los frijoleros · 3 uds.</span>
-          <h3 class="plato-nombre">Sincronizadas</h3>
-          <p class="plato-desc">Tortillas de trigo rellenas de queso fundido y jamón york.</p>
-          <div class="plato-footer"><span class="plato-precio">7,50€</span></div>
-        </div>
-
-        <div class="menu-section-title"><h2>Postres</h2></div>
-
-        <div class="plato" data-cat="postre">
-          <span class="plato-cat">Postre</span>
-          <h3 class="plato-nombre">Carlota de Limón</h3>
-          <p class="plato-desc">Clásico mexicano de galleta, nata y crema de limón.</p>
-          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
-        </div>
-
-        <div class="plato" data-cat="postre">
-          <span class="plato-cat">Postre</span>
-          <h3 class="plato-nombre">Tres Leches</h3>
-          <p class="plato-desc">Bizcocho empapado en tres tipos de leche.</p>
-          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
-        </div>
-
-        <div class="plato" data-cat="postre">
-          <span class="plato-cat">Postre</span>
-          <h3 class="plato-nombre">Tarta de Temporada</h3>
-          <p class="plato-desc">Preguntar al camarero.</p>
-          <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
-        </div>
-
-      </div>
-      <div class="nota-pie">Disponible de 16:00 a 20:00h · Precios con IVA incluido</div>
-    </div><!-- /panel-tarde -->
-
     <!-- ===== CARTA DOMINGO ===== -->
     <div class="panel" id="panel-domingo">
       <div class="domingo-header">
         <h2>Carta del <em style="color:var(--rojo);font-style:normal">Domingo</em></h2>
-        <p>Menú especial de brunch</p>
-        <span class="hora">Domingos · 11:00 a 13:00h</span>
+        <p>Menú especial · Solo domingos</p>
       </div>
-      <div class="menu-grid">
 
-        <div class="plato">
-          <span class="plato-cat">Plato · 3 uds.</span>
-          <h3 class="plato-nombre">Barbacoa de Cordero</h3>
-          <p class="plato-desc">Tortillas de maíz con barbacoa de cordero desmechada, cebolla y cilantro.</p>
-          <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
+      <!-- Mañana -->
+      <div class="domingo-turno">
+        <div class="domingo-turno-header">
+          <span class="domingo-turno-icon">🌅</span>
+          <div>
+            <h3>Mañana</h3>
+            <p>11:00 – 13:00h</p>
+          </div>
         </div>
+        <div class="menu-grid">
 
-        <div class="plato">
-          <span class="plato-cat">Plato</span>
-          <h3 class="plato-nombre">Chilaquiles</h3>
-          <p class="plato-desc">De huevo con chorizo. Totopos en salsa con queso, crema y cebolla.</p>
-          <div class="plato-footer"><span class="plato-precio">14,90€</span></div>
+          <div class="plato">
+            <span class="plato-cat">Plato · 3 uds.</span>
+            <h3 class="plato-nombre">Barbacoa de Cordero</h3>
+            <p class="plato-desc">Tortillas de maíz con barbacoa de cordero desmechada, cebolla y cilantro.</p>
+            <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Plato</span>
+            <h3 class="plato-nombre">Chilaquiles</h3>
+            <p class="plato-desc">De huevo con chorizo. Totopos en salsa con queso, crema y cebolla.</p>
+            <div class="plato-footer"><span class="plato-precio">14,90€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Plato · 4 uds.</span>
+            <h3 class="plato-nombre">Enchiladas</h3>
+            <p class="plato-desc">Tortillas rellenas bañadas en salsa de guajillo con queso y crema.</p>
+            <div class="plato-footer"><span class="plato-precio">18,00€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Plato</span>
+            <h3 class="plato-nombre">Menudo</h3>
+            <p class="plato-desc">Guiso tradicional mexicano de callos en caldo de chile rojo con orégano y lima.</p>
+            <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Plato · 3 uds.</span>
+            <h3 class="plato-nombre">Barbacoa de Borrego</h3>
+            <p class="plato-desc">Tortillas con barbacoa de borrego, cebolla morada, cilantro y salsa verde.</p>
+            <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Quesadilla de masa</span>
+            <h3 class="plato-nombre">Quesadilla de Masa</h3>
+            <p class="plato-desc">Clásica 13€ · Tinga 14€ · Cochinita 14€ · Birria 16€</p>
+            <div class="plato-footer"><span class="plato-precio">desde 13,00€</span></div>
+          </div>
+
         </div>
-
-        <div class="plato">
-          <span class="plato-cat">Plato · 4 uds.</span>
-          <h3 class="plato-nombre">Enchiladas</h3>
-          <p class="plato-desc">Tortillas rellenas bañadas en salsa de guajillo con queso y crema.</p>
-          <div class="plato-footer"><span class="plato-precio">18,00€</span></div>
-        </div>
-
-        <div class="plato">
-          <span class="plato-cat">Plato</span>
-          <h3 class="plato-nombre">Menudo</h3>
-          <p class="plato-desc">Guiso tradicional mexicano de callos en caldo de chile rojo con orégano y lima.</p>
-          <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
-        </div>
-
-        <div class="plato">
-          <span class="plato-cat">Plato · 3 uds.</span>
-          <h3 class="plato-nombre">Barbacoa de Borrego</h3>
-          <p class="plato-desc">Tortillas con barbacoa de borrego, cebolla morada, cilantro y salsa verde.</p>
-          <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
-        </div>
-
-        <div class="plato">
-          <span class="plato-cat">Quesadilla de masa</span>
-          <h3 class="plato-nombre">Quesadilla de Masa</h3>
-          <p class="plato-desc">Clásica 13€ · Tinga 14€ · Cochinita 14€ · Birria 16€</p>
-          <div class="plato-footer"><span class="plato-precio">desde 13,00€</span></div>
-        </div>
-
       </div>
-      <div class="nota-pie">Solo disponible domingos de 11:00 a 13:00h · <strong>643 114 833</strong></div>
+
+      <!-- Tarde -->
+      <div class="domingo-turno">
+        <div class="domingo-turno-header">
+          <span class="domingo-turno-icon">🌇</span>
+          <div>
+            <h3>Tarde</h3>
+            <p>16:00 – 20:00h</p>
+          </div>
+        </div>
+        <div class="menu-grid">
+
+          <div class="menu-section-title"><h2>Entrantes</h2></div>
+
+          <div class="plato">
+            <span class="plato-cat">Entrante</span>
+            <h3 class="plato-nombre">Totopos Clásicos</h3>
+            <p class="plato-desc">Triángulos de maíz artesanales, salsa de frijol, salsa de guajillo, pico de gallo, jalapeños y salsa de aguacate.</p>
+            <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Entrante · Media ración</span>
+            <h3 class="plato-nombre">Totopitos Clásicos</h3>
+            <p class="plato-desc">Media ración. Añade tinga +1€ · cochinita +2€</p>
+            <div class="plato-footer"><span class="plato-precio">8,00€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Entrante</span>
+            <h3 class="plato-nombre">Guacamole</h3>
+            <p class="plato-desc">Aguacate fresco, pico de gallo y totopos artesanales.</p>
+            <div class="plato-footer"><span class="plato-precio">11,00€</span></div>
+          </div>
+
+          <div class="menu-section-title"><h2>Tacos y más</h2></div>
+
+          <div class="plato">
+            <span class="plato-cat">Tacos · 4 uds.</span>
+            <h3 class="plato-nombre">Cochinita Pibil</h3>
+            <p class="plato-desc">Cerdo marinado en achiote y cebolla morada encurtida.</p>
+            <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Tacos · 4 uds.</span>
+            <h3 class="plato-nombre">Tinga</h3>
+            <p class="plato-desc">Pollo desmechado con salsa de tomate casera y chile chipotle.</p>
+            <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Tacos · 4 uds.</span>
+            <h3 class="plato-nombre">Birria</h3>
+            <p class="plato-desc">Guiso de ternera en chiles secos y especias, cilantro, cebolla y salsa de aguacate.</p>
+            <div class="plato-footer"><span class="plato-precio">10,90€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Para compartir · 8 uds.</span>
+            <h3 class="plato-nombre">Mix de 8 Tacos</h3>
+            <p class="plato-desc">Surtido de cochinita, tinga, birria y alambre de lomo.</p>
+            <div class="plato-footer"><span class="plato-precio">21,00€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Especialidad · 4 uds.</span>
+            <h3 class="plato-nombre">Cachetadas de Chorizo</h3>
+            <p class="plato-desc">Tortillas de trigo con queso planchado, chorizo asado, cebolla, cilantro y salsa de la casa.</p>
+            <div class="plato-footer"><span class="plato-precio">12,50€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Para los frijoleros · 3 uds.</span>
+            <h3 class="plato-nombre">Sincronizadas</h3>
+            <p class="plato-desc">Tortillas de trigo rellenas de queso fundido y jamón york.</p>
+            <div class="plato-footer"><span class="plato-precio">7,50€</span></div>
+          </div>
+
+          <div class="menu-section-title"><h2>Postres</h2></div>
+
+          <div class="plato">
+            <span class="plato-cat">Postre</span>
+            <h3 class="plato-nombre">Carlota de Limón</h3>
+            <p class="plato-desc">Clásico mexicano de galleta, nata y crema de limón.</p>
+            <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Postre</span>
+            <h3 class="plato-nombre">Tres Leches</h3>
+            <p class="plato-desc">Bizcocho empapado en tres tipos de leche.</p>
+            <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+          </div>
+
+          <div class="plato">
+            <span class="plato-cat">Postre</span>
+            <h3 class="plato-nombre">Tarta de Temporada</h3>
+            <p class="plato-desc">Preguntar al camarero.</p>
+            <div class="plato-footer"><span class="plato-precio">6,00€</span></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="nota-pie">Solo disponible domingos · <strong>643 114 833</strong></div>
     </div><!-- /panel-domingo -->
 
     <!-- ===== BEBIDAS ===== -->
@@ -768,7 +797,7 @@
     const mainTabs  = document.querySelectorAll('.main-tab');
     const panels    = document.querySelectorAll('.panel');
     const subTabs   = document.getElementById('subTabs');
-    const panelsWithSub = ['panel-dia', 'panel-tarde'];
+    const panelsWithSub = ['panel-dia'];
 
     mainTabs.forEach(tab => {
       tab.addEventListener('click', () => {
