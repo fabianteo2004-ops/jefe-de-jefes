@@ -295,6 +295,21 @@
       font-size: 0.78rem;
     }
 
+    /* ===== NOTA NIÑOS ===== */
+    .nota-ninos {
+      position: relative; z-index: 1;
+      display: flex; align-items: flex-start; gap: 0.9rem;
+      margin: 0 5vw 3rem;
+      padding: 1.2rem 1.5rem;
+      background: rgba(220,56,48,0.08);
+      border: 1px solid rgba(220,56,48,0.35);
+      border-left: 4px solid var(--rojo);
+      border-radius: 10px;
+    }
+    .nota-ninos-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 1px; }
+    .nota-ninos p { font-size: 0.82rem; color: rgba(242,236,213,0.7); line-height: 1.7; }
+    .nota-ninos strong { color: var(--crema); }
+
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
       .menu-grid { grid-template-columns: 1fr; }
@@ -460,15 +475,6 @@
           </div>
         </div>
 
-        <div class="plato" data-cat="especialidad">
-          <span class="plato-cat">Especialidad · 9 uds.</span>
-          <h3 class="plato-nombre">Discada</h3>
-          <p class="plato-desc">Mezcla de carnes (cerdo, chorizo, bacon, jamón) cocinadas en disco con verduras y especias.</p>
-          <div class="plato-footer">
-            <span class="plato-precio">24,90€</span>
-            <span class="plato-tag">🔥 El más pedido</span>
-          </div>
-        </div>
 
         <div class="plato" data-cat="especialidad">
           <span class="plato-cat">Especialidad · 3 uds.</span>
@@ -487,25 +493,6 @@
           </div>
         </div>
 
-        <div class="plato" data-cat="especialidad">
-          <span class="plato-cat">Especialidad · 4 uds.</span>
-          <h3 class="plato-nombre">Cachetadas de Chorizo</h3>
-          <p class="plato-desc">Tortillas de trigo rellenas de queso planchado con chorizo asado, cebolla, cilantro y salsa de la casa.</p>
-          <div class="plato-footer">
-            <span class="plato-precio">12,90€</span>
-            <span class="plato-tag">Nuevo</span>
-          </div>
-        </div>
-
-        <div class="plato" data-cat="especialidad">
-          <span class="plato-cat">Especialidad</span>
-          <h3 class="plato-nombre">Huarache Perrón</h3>
-          <p class="plato-desc">Masa de maíz alargada con frijoles, queso, nata, carne deshebrada y salsa roja.</p>
-          <div class="plato-footer">
-            <span class="plato-precio">16,50€</span>
-            <span class="plato-tag">Nuevo</span>
-          </div>
-        </div>
 
         <div class="plato" data-cat="especialidad">
           <span class="plato-cat">Especialidad · 4 uds.</span>
@@ -791,6 +778,11 @@
     </div><!-- /panel-bebidas -->
 
   </div><!-- /content -->
+
+  <div class="nota-ninos">
+    <span class="nota-ninos-icon">👶</span>
+    <p><strong>Gratis 1 platillo por niño menor de 5 años.</strong> Válido solo un niño por adulto en el consumo de un plato individual. No incluye bebida ni postre. Solo consumo en local.</p>
+  </div>
 
   <script>
     // ===== TABS PRINCIPALES =====
