@@ -1080,7 +1080,7 @@
         <span class="badge badge-verde">8€ — 20€</span>
       </div>
       <div class="hero-cta reveal delay-4">
-        <a href="#menu" class="btn btn-primary">Ver Menú</a>
+        <a href="./carta/index.html" class="btn btn-primary">Ver Menú</a>
         <a href="#contacto" class="btn btn-secondary">Reservar</a>
         <a href="https://www.instagram.com/jefedejefesmadrid" target="_blank" class="btn btn-outline">Instagram</a>
       </div>
@@ -1161,15 +1161,15 @@
         </div>
         <div class="dest-card reveal delay-3">
           <div class="dest-card-img-wrap">
-            <img class="dest-card-img" src="./assets/queso-fundido-ig.jpg" alt="Queso Fundido con Secreto"/>
+            <img class="dest-card-img" src="./assets/enchiladas.jpg" alt="Enchiladas Rojas"/>
           </div>
           <div class="dest-card-body">
-            <p class="dest-card-cat">Para compartir</p>
-            <h3 class="dest-card-name">Queso Fundido con Secreto</h3>
-            <p class="dest-card-desc">Sartén de queso Oaxaca fundido con secreto ibérico, chorizo y pimientos. Se sirve con tortillas de trigo recién hechas para mojar.</p>
+            <p class="dest-card-cat">Clásico · 4 uds.</p>
+            <h3 class="dest-card-name">Enchiladas Rojas</h3>
+            <p class="dest-card-desc">Tortillas rellenas de pollo bañadas en salsa de chile guajillo con queso y crema agria.</p>
             <div class="dest-card-footer">
-              <span class="dest-card-price">desde 12€</span>
-              <span class="dest-card-badge">🧀 Para compartir</span>
+              <span class="dest-card-price">18€</span>
+              <span class="dest-card-badge">🌶️ Clásico</span>
             </div>
           </div>
         </div>
@@ -1442,7 +1442,7 @@
     <div class="footer-logo"><span>Jefe</span> <em>de Jefes</em></div>
     <div class="footer-links">
       <a href="#sobre">Nosotros</a>
-      <a href="#menu">Menú</a>
+      <a href="./carta/index.html">Menú</a>
       <a href="#terraza">Terraza</a>
       <a href="#horarios">Horarios</a>
       <a href="#contacto">Contacto</a>
@@ -1497,12 +1497,24 @@
       mobileMenu.classList.contains('open') ? lockScroll() : unlockScroll();
     });
     mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href') || '';
+        const isAnchor = href.startsWith('#');
+        if (isAnchor) e.preventDefault();
         burger.classList.remove('open');
         mobileMenu.classList.remove('open');
-        if (!a.getAttribute('href')?.includes('carta')) {
-          setTimeout(unlockScroll, 350);
-        }
+        setTimeout(() => {
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.width = '';
+          document.body.style.overflow = '';
+          if (isAnchor) {
+            const target = document.querySelector(href);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            window.location.href = href;
+          }
+        }, 300);
       });
     });
 
