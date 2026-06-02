@@ -355,6 +355,7 @@
   <div class="main-tabs">
     <button class="main-tab active" data-panel="dia">Carta del día</button>
     <button class="main-tab" data-panel="domingo">Domingo</button>
+    <button class="main-tab" data-panel="evento">Evento</button>
     <button class="main-tab" data-panel="bebidas">Bebidas</button>
   </div>
 
@@ -564,6 +565,10 @@
         Precios con IVA · <strong>643 114 833</strong> · Av. de Niza, 51 · San Blas, Madrid
         <div class="picante-note">🌶️ Si quieres picante, pídelo al camarero</div>
       </div>
+      <div class="nota-ninos">
+        <span class="nota-ninos-icon">👶</span>
+        <p><strong>Gratis 1 Sincronizada por niño menor de 5 años.</strong> Válido solo un niño por adulto en el consumo de un plato individual. No incluye bebida ni postre. Solo consumo en local.</p>
+      </div>
     </div><!-- /panel-dia -->
 
     <!-- ===== CARTA DOMINGO ===== -->
@@ -601,7 +606,7 @@
           <div class="plato">
             <span class="plato-cat">Plato · 3 uds.</span>
             <h3 class="plato-nombre">Barbacoa de Borrego</h3>
-            <p class="plato-desc">Tortillas de maíz rellenas de borrego ahumado, cebolla, cilantro, salsa roja, acompañado de consomé con garbanzos.</p>
+            <p class="plato-desc">Tortillas de maíz rellenas de cordero ahumado, cebolla, cilantro, salsa roja, acompañado de consomé con garbanzos.</p>
             <div class="plato-footer"><span class="plato-precio">16,90€</span></div>
           </div>
 
@@ -615,72 +620,70 @@
         </div>
       </div>
 
-      <!-- Tarde -->
-      <div class="domingo-turno">
-        <div class="domingo-turno-header">
-          <span class="domingo-turno-icon">🏟️</span>
-          <div>
-            <h3>Menú Evento</h3>
-          </div>
-        </div>
-        <p class="domingo-turno-nota">Carta disponible con evento en el Metropolitano. Consulta disponibilidad en el restaurante.</p>
-        <div class="menu-grid">
-
-          <div class="menu-section-title"><h2>Entrantes</h2></div>
-
-          <div class="plato">
-            <h3 class="plato-nombre">Totopos Clásicos</h3>
-            <p class="plato-desc">Triángulos de maíz artesanales, salsa de frijol, salsa de guajillo, pico de gallo, jalapeños y salsa de aguacate.</p>
-            <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
-          </div>
-
-          <div class="plato">
-            <h3 class="plato-nombre">Totopitos Clásicos</h3>
-            <p class="plato-desc">Media ración. Añade tinga +1€ · cochinita +2€</p>
-            <div class="plato-footer"><span class="plato-precio">8,00€</span></div>
-          </div>
-
-          <div class="plato">
-            <h3 class="plato-nombre">Guacamole</h3>
-            <p class="plato-desc">Aguacate fresco, pico de gallo y totopos artesanales.</p>
-            <div class="plato-footer"><span class="plato-precio">11,00€</span></div>
-          </div>
-
-          <div class="menu-section-title"><h2>Tacos y más</h2></div>
-
-          <div class="plato">
-            <span class="plato-cat">Tacos · 4 uds.</span>
-            <h3 class="plato-nombre">Cochinita Pibil</h3>
-            <p class="plato-desc">Cerdo marinado en achiote y cebolla morada encurtida.</p>
-            <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
-          </div>
-
-          <div class="plato">
-            <span class="plato-cat">Tacos · 4 uds.</span>
-            <h3 class="plato-nombre">Tinga</h3>
-            <p class="plato-desc">Pollo desmechado con salsa de tomate casera y chile chipotle.</p>
-            <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
-          </div>
-
-          <div class="plato">
-            <span class="plato-cat">Para compartir · 8 uds.</span>
-            <h3 class="plato-nombre">Mix de 8 Tacos</h3>
-            <p class="plato-desc">Surtido de 8 tacos: 2 de cochinita, 2 de tinga, 2 de birria y 2 de chorizo con queso.</p>
-            <div class="plato-footer"><span class="plato-precio">21,00€</span></div>
-          </div>
-
-          <div class="plato">
-            <span class="plato-cat">Tacos</span>
-            <h3 class="plato-nombre">Sincronizadas</h3>
-            <p class="plato-desc">Tortillas de trigo rellenas de queso fundido y jamón york.</p>
-            <div class="plato-footer"><span class="plato-precio">7,50€</span></div>
-          </div>
-
-        </div>
-      </div>
-
       <div class="nota-pie">Solo disponible domingos · <strong>643 114 833</strong></div>
     </div><!-- /panel-domingo -->
+
+    <!-- ===== EVENTO ===== -->
+    <div class="panel" id="panel-evento">
+      <div class="domingo-header">
+        <h2>Menú <em style="color:var(--rojo);font-style:normal">Evento</em></h2>
+        <p class="domingo-turno-nota" style="margin:0.5rem 0 0;padding:0.6rem 1rem;font-size:0.82rem;">🏟️ Carta disponible con evento en el Metropolitano. Consulta disponibilidad en el restaurante.</p>
+      </div>
+      <div class="menu-grid">
+
+        <div class="menu-section-title"><h2>Entrantes</h2></div>
+
+        <div class="plato">
+          <h3 class="plato-nombre">Totopos Clásicos</h3>
+          <p class="plato-desc">Triángulos de maíz artesanales, salsa de frijol, salsa de guajillo, pico de gallo, jalapeños y salsa de aguacate.</p>
+          <div class="plato-footer"><span class="plato-precio">15,00€</span></div>
+        </div>
+
+        <div class="plato">
+          <h3 class="plato-nombre">Totopitos Clásicos</h3>
+          <p class="plato-desc">Media ración. Añade tinga +1€ · cochinita +2€</p>
+          <div class="plato-footer"><span class="plato-precio">8,00€</span></div>
+        </div>
+
+        <div class="plato">
+          <h3 class="plato-nombre">Guacamole</h3>
+          <p class="plato-desc">Aguacate fresco, pico de gallo y totopos artesanales.</p>
+          <div class="plato-footer"><span class="plato-precio">11,00€</span></div>
+        </div>
+
+        <div class="menu-section-title"><h2>Tacos y más</h2></div>
+
+        <div class="plato">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Cochinita Pibil</h3>
+          <p class="plato-desc">Cerdo marinado en achiote y cebolla morada encurtida.</p>
+          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Tacos · 4 uds.</span>
+          <h3 class="plato-nombre">Tinga</h3>
+          <p class="plato-desc">Pollo desmechado con salsa de tomate casera y chile chipotle.</p>
+          <div class="plato-footer"><span class="plato-precio">10,50€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Para compartir · 8 uds.</span>
+          <h3 class="plato-nombre">Mix de 8 Tacos</h3>
+          <p class="plato-desc">Surtido de 8 tacos: 2 de cochinita, 2 de tinga, 2 de birria y 2 de chorizo con queso.</p>
+          <div class="plato-footer"><span class="plato-precio">21,00€</span></div>
+        </div>
+
+        <div class="plato">
+          <span class="plato-cat">Tacos</span>
+          <h3 class="plato-nombre">Sincronizadas</h3>
+          <p class="plato-desc">Tortillas de trigo rellenas de queso fundido y jamón york.</p>
+          <div class="plato-footer"><span class="plato-precio">7,50€</span></div>
+        </div>
+
+      </div>
+      <div class="nota-pie"><strong>643 114 833</strong> · Av. de Niza, 51 · San Blas, Madrid</div>
+    </div><!-- /panel-evento -->
 
     <!-- ===== BEBIDAS ===== -->
     <div class="panel" id="panel-bebidas">
