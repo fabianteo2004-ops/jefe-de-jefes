@@ -49,16 +49,18 @@
       transition: background 0.3s;
     }
     .nav-logo {
+      font-family: 'Anton', Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: var(--blanco);
       text-decoration: none;
+      text-transform: uppercase;
       display: flex;
       align-items: center;
     }
-    .nav-logo-img {
-      height: 52px;
-      width: auto;
-      display: block;
-      border-radius: 8px;
-    }
+    .nav-logo-text span { color: var(--crema); }
+    .nav-logo-text em { color: var(--crema); font-style: normal; }
+    .nav-logo-img { display: none; height: 52px; width: auto; border-radius: 8px; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       color: var(--texto);
@@ -74,7 +76,7 @@
     /* ===== HERO ===== */
     .hero {
       position: relative;
-      height: 75vh;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -911,12 +913,17 @@
       margin-bottom: 1rem;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
-    .footer-logo img {
-      height: 80px;
-      width: auto;
-      border-radius: 10px;
+    .footer-logo-text {
+      font-size: 1.4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
     }
+    .footer-logo-text span { color: var(--crema); }
+    .footer-logo-text em { color: var(--crema); font-style: normal; }
+    .footer-logo-img { display: none; height: 80px; width: auto; border-radius: 10px; }
     footer p { font-size: 0.8rem; color: var(--crema); margin-top: 0.5rem; }
     .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin: 1rem 0; }
     .footer-links a { font-size: 0.8rem; color: var(--crema); text-decoration: none; }
@@ -994,7 +1001,10 @@
       .dest-banner { height: auto; min-height: unset; }
       .dest-banner img { width: 100%; height: auto; object-fit: unset; filter: brightness(0.55); }
 
-      .hero { height: 100vh; }
+      .nav-logo-text { display: none; }
+      .nav-logo-img { display: block !important; height: 64px; }
+      .footer-logo-text { display: none; }
+      .footer-logo-img { display: block !important; }
       .hero-bg { background-attachment: unset; background-size: 90% auto; background-position: center; filter: brightness(0.55) saturate(1.2); }
       .hero-stripe-top, .hero-stripe-bot { display: none; }
 
@@ -1044,7 +1054,10 @@
 
   <!-- NAVBAR -->
   <nav id="navbar">
-    <a href="#" class="nav-logo"><img src="./assets/logo-bg.jpg" alt="Jefe de Jefes" class="nav-logo-img"></a>
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-text"><span>Jefe</span> <em>de Jefes</em></span>
+      <img src="./assets/logo-bg.jpg" alt="Jefe de Jefes" class="nav-logo-img">
+    </a>
     <ul class="nav-links">
       <li><a href="#sobre">Nosotros</a></li>
       <li><a href="./carta/index.html">Carta</a></li>
@@ -1430,7 +1443,10 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo"><img src="./assets/logo-bg.jpg" alt="Jefe de Jefes"></div>
+    <div class="footer-logo">
+      <span class="footer-logo-text"><span>Jefe</span> <em>de Jefes</em></span>
+      <img src="./assets/logo-bg.jpg" alt="Jefe de Jefes" class="footer-logo-img">
+    </div>
     <div class="footer-links">
       <a href="#sobre">Nosotros</a>
       <a href="./carta/index.html">Carta</a>
