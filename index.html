@@ -991,7 +991,7 @@
       .nav-burger { display: flex !important; width: 44px; height: 44px; }
       nav { height: 90px; padding: 0 6vw; background: #ffffff; border-bottom: 2px solid var(--rojo); }
       .nav-burger span { display: block !important; width: 30px; height: 3px; background: #1a1a1a !important; }
-      .nav-logo-img { height: 72px; }
+      .nav-logo-img { height: 80px; }
 
       section { padding: 70px 6vw; }
       #carta { padding: 70px 0; }
@@ -1526,6 +1526,10 @@
     // ===== NAVBAR SCROLL =====
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 768) {
+        navbar.style.background = '#ffffff';
+        return;
+      }
       navbar.style.background = window.scrollY > 80
         ? 'rgba(0,0,0,0.97)'
         : 'rgba(0,0,0,0.85)';
